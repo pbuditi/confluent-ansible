@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{% for key, value in kafka.connect.distributed.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+nohup {{confluent_home}}/confluent-{{ confluent_version }}/bin/connect-distributed {{ kafka.connect.distributed.config_dir }}/{{kafka.connect.distributed.config_file}}  > {{ confluent_log_dir }}/connect-distributed.log &

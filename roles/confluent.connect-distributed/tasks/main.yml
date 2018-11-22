@@ -1,0 +1,30 @@
+- name:  connect start script
+  template:
+    src: connect-start.sh.j2
+    dest: "{{ confluent_bin_dir}}/connect-start.sh"
+    mode: 0755
+
+- name:  connect stop script
+  template:
+    src: connect-stop.sh.j2
+    dest: "{{ confluent_bin_dir}}/connect-stop.sh"
+    mode: 0755
+
+- name: connect distributed config
+  template:
+    src: connect-distributed_sasl_ssl.properties.j2
+    dest: "{{ kafka.connect.distributed.config_dir }}/{{kafka.connect.distributed.config_file}}"
+    mode: 0640
+  notify:
+    - stop connect
+    - start connect
+
+- name: start connect
+  shell: ./connect-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+- name: stop connect
+  shell: ./connect-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

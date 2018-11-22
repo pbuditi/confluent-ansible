@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{% for key, value in zookeeper.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+{{confluent_home}}/confluent-{{ confluent_version }}/bin/zookeeper-server-stop || echo "zookeeper server- not started yet"

@@ -1,0 +1,9 @@
+- name: start ksql
+  shell: ./ksql-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir}}"
+
+- name: stop ksql
+  shell: ./ksql-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir}}"

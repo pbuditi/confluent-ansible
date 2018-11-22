@@ -1,0 +1,22 @@
+schema_registry_listener_port: 8081
+
+schema:
+  registry:
+    user: schemaregistry
+    group: rioapp
+    config_dir: "{{ confluent_config_dir }}"
+    data_dir: "{{ data_base_dir }}/schema-registry"
+    config_file: schema-registry.properties
+    service_name: confluent-schema-registry
+    config:
+      listeners: https://0.0.0.0:{{schema_registry_listener_port}}
+      inter.instance.protocol: https
+      kafkastore.topic: _schemas
+      debug: false
+      avro.compatibility.level: full_transitive
+    environment:
+      SCHEMA_REGISTRY_HEAP_OPTS: "-Xmx1000M"
+      SCHEMA_REGISTRY_OPTS: "-Djava.security.auth.login.config={{ schemaregistry_server_jaas }} -javaagent:{{ jmx_prometheus_javaagent }}=8080:/opt/confluent/prometheus/confluent-schema-registry-jmx.yml"    
+    systemd:
+      enabled: yes
+      state: started

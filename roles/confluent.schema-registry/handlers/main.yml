@@ -1,0 +1,9 @@
+- name: start schema-registry
+  shell: ./schema-registry-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+- name: stop schema-registry
+  shell: ./schema-registry-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

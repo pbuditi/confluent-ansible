@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{% for key, value in kafka.broker.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+{{confluent_home}}/confluent-{{ confluent_version }}/bin/kafka-server-stop || echo "kafka server not started yet"

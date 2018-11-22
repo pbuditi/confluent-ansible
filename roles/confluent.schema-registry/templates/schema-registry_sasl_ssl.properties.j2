@@ -1,0 +1,21 @@
+# Maintained by Ansible
+kafkastore.bootstrap.servers={% for host in groups['broker'] %}{% if loop.index > 1%},{% endif %}SASL_SSL://{{ host }}:{{broker.config.port}}{% endfor %}
+
+{% include './includes/base_schema-registry.properties.j2' %}
+
+#SSL additions
+ssl.truststore.location={{ truststore_path }}
+ssl.truststore.password={{ truststore_password }}
+ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+ssl.keystore.password={{ keystore_password }}
+ssl.key.password={{ key_password }}
+
+kafkastore.ssl.truststore.location={{ truststore_path }}
+kafkastore.ssl.truststore.password={{ truststore_password }}
+kafkastore.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+kafkastore.ssl.keystore.password={{ keystore_password }}
+kafkastore.ssl.key.password={{ key_password }}
+
+# Configure SASL_SSL if SSL encryption is enabled
+kafkastore.security.protocol=SASL_SSL
+kafkastore.sasl.mechanism=GSSAPI

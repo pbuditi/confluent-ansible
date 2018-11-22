@@ -1,0 +1,9 @@
+- name: start kafka-rest
+  shell: ./kafka-rest-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+- name: stop kafka-rest
+  shell: ./kafka-rest-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

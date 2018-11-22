@@ -1,0 +1,21 @@
+zookeeper:
+  user: zookeeper
+  group: rioapp
+  config_dir: "{{ confluent_config_dir }}"
+  config_file: "zookeeper.properties"
+  service_name: confluent-zookeeper
+  config:
+    maxClientCnxns: 60
+    initLimit: 5
+    syncLimit: 2
+    autopurge.snapRetainCount: 10
+    autopurge.purgeInterval: 1
+    dataDir: "{{ data_base_dir }}/zookeeper"
+    clientPort: 2181
+  environment:
+    KAFKA_HEAP_OPTS: "-Xmx1000M"
+    LOG_DIR: "{{ confluent_log_dir }}"
+    KAFKA_OPTS: "-Djava.security.auth.login.config={{ zookeeper_server_jaas }} -javaagent:{{ jmx_prometheus_javaagent }}=8080:/opt/confluent/prometheus/confluent-zookeeper-jmx.yml"
+  systemd:
+    enabled: yes
+    state: started

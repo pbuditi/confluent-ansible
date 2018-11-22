@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{% for key, value in ksql.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+nohup {{confluent_home}}/confluent-{{ confluent_version }}/bin/ksql-server-start {{ ksql.config_dir }}/{{ ksql.config_file }} > {{ confluent_log_dir }}/ksql.log &

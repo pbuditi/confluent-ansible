@@ -1,0 +1,84 @@
+# Maintained by Ansible
+{% include './includes/base_connect-distributed.properties.j2' %}
+
+security.protocol=SASL_SSL
+producer.security.protocol=SASL_SSL
+consumer.security.protocol=SASL_SSL
+producer.confluent.monitoring.interceptor.security.protocol=SASL_SSL
+consumer.confluent.monitoring.interceptor.security.protocol=SASL_SSL
+
+#SSL additions
+ssl.truststore.location={{ truststore_path }}
+ssl.truststore.password={{ truststore_password }}
+ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+ssl.keystore.password={{ keystore_password }}
+ssl.key.password={{ key_password }}
+
+producer.ssl.truststore.location={{ truststore_path }}
+producer.ssl.truststore.password={{ truststore_password }}
+producer.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+producer.ssl.keystore.password={{ keystore_password }}
+producer.ssl.key.password={{ key_password }}
+
+consumer.ssl.truststore.location={{ truststore_path }}
+consumer.ssl.truststore.password={{ truststore_password }}
+consumer.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+consumer.ssl.keystore.password={{ keystore_password }}
+consumer.ssl.key.password={{ key_password }}
+
+producer.confluent.monitoring.interceptor.ssl.truststore.location={{ truststore_path }}
+producer.confluent.monitoring.interceptor.ssl.truststore.password={{ truststore_password }}
+producer.confluent.monitoring.interceptor.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+producer.confluent.monitoring.interceptor.ssl.keystore.password={{ keystore_password }}
+producer.confluent.monitoring.interceptor.ssl.key.password={{ key_password }}
+
+consumer.confluent.monitoring.interceptor.ssl.truststore.location={{ truststore_path }}
+consumer.confluent.monitoring.interceptor.ssl.truststore.password={{ truststore_password }}
+consumer.confluent.monitoring.interceptor.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+consumer.confluent.monitoring.interceptor.ssl.keystore.password={{ keystore_password }}
+consumer.confluent.monitoring.interceptor.ssl.key.password={{ key_password }}
+
+#SASL additions
+sasl.mechanism=GSSAPI
+sasl.kerberos.service.name={{ kerberos_kafka_service }}
+
+sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
+    useKeyTab=true \
+    storeKey=true \
+    keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab" \
+    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";
+
+
+# Configure SASL_SSL if SSL encryption is enabled
+consumer.sasl.mechanism=GSSAPI
+consumer.sasl.kerberos.service.name={{ kerberos_kafka_service }}
+consumer.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
+    useKeyTab=true \
+    storeKey=true \
+    keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab" \
+    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";
+
+
+producer.sasl.mechanism=GSSAPI
+producer.sasl.kerberos.service.name={{ kerberos_kafka_service }}
+producer.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
+    useKeyTab=true \
+    storeKey=true \
+    keyTab="{{ keytab_path }}/{{ kerberos_connect_service }}.keytab" \
+    principal="{{ kerberos_connect_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";
+
+
+consumer.confluent.monitoring.interceptor.sasl.mechanism=GSSAPI
+consumer.confluent.monitoring.interceptor.sasl.kerberos.service.name={{ kerberos_kafka_service }}
+consumer.confluent.monitoring.interceptor.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
+    useKeyTab=true \
+    storeKey=true \
+    keyTab="{{ keytab_path }}/{{ kerberos_connect_service }}.keytab" \
+    principal="{{ kerberos_connect_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";;
+producer.confluent.monitoring.interceptor.sasl.mechanism=GSSAPI
+producer.confluent.monitoring.interceptor.sasl.kerberos.service.name={{ kerberos_kafka_service }}
+producer.confluent.monitoring.interceptor.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
+    useKeyTab=true \
+    storeKey=true \
+    keyTab="{{ keytab_path }}/{{ kerberos_connect_service }}.keytab" \
+    principal="{{ kerberos_connect_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";

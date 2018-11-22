@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+kill $(ps -ef | grep "kafka.connect" | grep -v "grep" | cut -d" " -f3) || echo "kafka connect no started"

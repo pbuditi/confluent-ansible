@@ -1,0 +1,55 @@
+- name: create broker data directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items: "{{kafka.broker.datadir}}"
+
+- name: create broker log directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0775
+  with_items: "{{kafka.broker.logdir}}"
+
+- name: create broker config directories
+  file:
+    path: "{{ kafka.broker.config_dir }}"
+    state: directory
+    mode: 0775
+
+- name: kafka create start service script
+  template:
+    src: "kafka-start.sh.j2"
+    dest: "{{ confluent_bin_dir}}/kafka-start.sh"
+    mode: 0755
+
+- name: kafka create stop service script
+  template:
+    src: "kafka-stop.sh.j2"
+    dest: "{{ confluent_bin_dir }}/kafka-stop.sh"
+    mode: 0755
+
+- name: kafka jaas create config
+  template:
+    src: "kafka_jaas.conf.j2"
+    dest: "{{ kafka_server_jaas}}"
+    mode: 0400
+
+- name: create broker config
+  template:
+    src: "server_sasl_ssl.properties.j2"
+    dest: "{{kafka.broker.config_dir}}/{{kafka.broker.config_file}}"
+    mode: 0640
+
+- name: stop broker
+  shell: ./kafka-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+  register: broker_status
+
+- name: start broker
+  shell: ./kafka-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+  register: broker_status

@@ -1,0 +1,41 @@
+- name: Check that the server truststore exists
+  stat:
+    path: "{{ truststore_path }}"
+  register: server_truststore
+
+- name: Check that the client truststore exists
+  stat:
+    path: "{{ truststore_client_path }}"
+  register: client_truststore
+
+- name: copy java cacerts as server truststore
+  copy: 
+    src: "{{ jdk_dir }}/jdk1.8.0_151/jre/lib/security/cacerts"
+    dest: "{{ truststore_path }}"
+    remote_src: yes
+  when: server_truststore.stat.exists == False 
+
+- name: copy java cacerts as client truststore
+  copy: 
+    src: "{{ jdk_dir }}/jdk1.8.0_151/jre/lib/security/cacerts"
+    dest: "{{ truststore_client_path }}"
+    remote_src: yes
+  when: client_truststore.stat.exists == False
+
+- name: import CARoot to client truststore
+  shell: "{{ confluent_home }}/bin/trust.sh >> trust.log"
+  args:
+    chdir: "{{ confluent_home }}/var/ssl"
+    creates: trust.log
+
+- name: fetch server truststore to local machine
+  fetch: 
+    src: "{{ truststore_path }}"
+    dest: kafka-server.truststore.jks
+    flat: yes
+
+- name: fetch client truststore to local machine
+  fetch: 
+    src: "{{ truststore_client_path }}"
+    dest: kafka-client.truststore.jks
+    flat: yes

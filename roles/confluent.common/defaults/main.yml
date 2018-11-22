@@ -1,0 +1,24 @@
+---
+zookeeper:
+  config:
+    clientPort: 2181
+broker:
+  config:
+    port: 9093
+rest:
+  config:
+    clientPort: 8082
+registry:
+  config:
+    clientPort: 8081
+connect:
+  config:
+    port: 8083
+ksql:
+  config:
+    port: 8084
+confluent:
+  package_name: confluent-platform-2.11
+  package_url: "{{ package_repo }}/confluent/confluent-{{confluent_version}}-{{kafka_version}}.tar.gz"
+  jdk_package_url: "{{ package_repo }}/misc/oraclejdk/jdk-8u151-linux-x64.tar.gz"
+  jdk_dir: "/opt/confluent/java/"

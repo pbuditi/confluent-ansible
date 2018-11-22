@@ -1,0 +1,62 @@
+- hosts: preflight
+  gather_facts: yes
+  vars:
+    ansible_user: rioadmin
+  tasks:
+  - import_role:
+      name: confluent.common
+    tags:
+      - common
+
+- hosts: preflight
+  vars:
+    ansible_user: rioadmin
+  tasks:
+  - import_role:
+      name: confluent.preflight
+    tags:
+      - install
+
+- hosts: preflight
+  vars:
+    ansible_user: rioadmin
+  tasks:
+  - import_role:
+      name: confluent.ssl_CA
+    tags:
+      - pre-install
+
+- hosts: ssl_CA
+  vars:
+    ansible_user: rioadmin
+  gather_facts: no
+  tasks:
+  - import_role:
+      name: prepare.ssl_setup
+
+- hosts: preflight
+  vars:
+    ansible_user: rioadmin
+ # gather_facts: no
+  serial: 1
+  tasks:
+  - import_role:
+      name: prepare.ssl_replicate
+
+- hosts: preflight
+  vars:
+    ansible_user: rioadmin
+  tasks:
+  - name: copy server truststore to all servers
+    copy: 
+      src: ./kafka-server.truststore.jks
+      dest: "{{ confluent_home }}/var/ssl/"
+
+- hosts: preflight
+  vars:
+    ansible_user: rioadmin
+  tasks:
+  - name: copy client truststore to all server
+    copy: 
+      src: ./kafka-client.truststore.jks
+      dest: "{{ confluent_home }}/var/ssl/"

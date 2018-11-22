@@ -1,0 +1,9 @@
+- name: start connect
+  shell: ./connect-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+- name: stop connect
+  shell: ./connect-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

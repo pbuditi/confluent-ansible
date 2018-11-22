@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{% for key, value in schema.registry.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+{{confluent_home}}/confluent-{{ confluent_version }}/bin/schema-registry-stop || echo "schema registry not started yet"

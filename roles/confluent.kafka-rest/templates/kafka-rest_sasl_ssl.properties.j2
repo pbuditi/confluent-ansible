@@ -1,0 +1,23 @@
+# Maintained by Ansible
+{% include './includes/base_kafka-rest.properties.j2' %}
+
+id={{kafka_rest_id}}
+
+#SSL Server settings
+ssl.truststore.location={{ truststore_path }}
+ssl.truststore.password={{ truststore_password }}
+ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname}}.keystore.jks
+ssl.keystore.password={{ keystore_password }}
+ssl.key.password={{ key_password }}
+
+client.security.protocol=SASL_SSL
+
+#SSL additions
+client.ssl.truststore.location={{ truststore_path }}
+client.ssl.truststore.password={{ truststore_password }}
+client.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname}}.keystore.jks
+client.ssl.keystore.password={{ keystore_password }}
+client.ssl.key.password={{ key_password }}
+
+# Configure SASL_SSL if SSL encryption is enabled
+client.sasl.mechanism=GSSAPI

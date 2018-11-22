@@ -1,0 +1,16 @@
+kafkarest:
+  user: restproxy
+  group: rioapp
+  config_dir: "{{confluent_config_dir}}"
+  config_file: "kafka-rest.properties"
+  data_dir: "{{ data_base_dir }}/kafka-rest"
+  service_name: confluent-kafka-rest
+  config:
+    listeners: https://0.0.0.0:8082
+    auto.register.schemas: false
+  environment:
+    LOG_DIR: "{{confluent_log_dir}}"
+    KAFKAREST_OPTS: "-Djava.security.auth.login.config={{ kafkarest_server_jaas }}"
+  systemd:
+    enabled: yes
+    state: started

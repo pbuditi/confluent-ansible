@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{% for key, value in kafka.broker.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+nohup {{confluent_home}}/confluent-{{ confluent_version }}/bin/kafka-server-start {{kafka.broker.config_dir}}/{{kafka.broker.config_file}} > {{ kafka.broker.logdir }}/broker.log &

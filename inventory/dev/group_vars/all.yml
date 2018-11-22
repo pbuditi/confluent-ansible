@@ -1,0 +1,8 @@
+rioadmin_password: rioadmin
+kafka_password: kafka
+zookeeper_password: zookeeper
+schemaregistry_password: schemaregistry
+restproxy_password: restproxy
+connect_password: connect
+ksql_password: ksql
+controlcenter_password: controlcenter

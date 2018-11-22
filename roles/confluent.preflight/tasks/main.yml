@@ -1,0 +1,50 @@
+---
+- name: ensure confluent home directory permissions are correct
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0775
+  with_items: "{{ confluent_home }}"
+
+- name: ensure data directory permissions are correct
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0775
+  with_items: "{{ data_base_dir }}"
+
+- name: create confluent folders
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0775
+  with_items: "{{ confluent.folders }}"
+
+- name: Install prometheus exporter
+  get_url:
+     url: "{{ confluent.prometheus_package_url }}"
+     dest: "{{ confluent_home }}/prometheus"
+     mode: 0755
+     remote_src: yes
+  
+- name: Install Confluent Kafka Package
+  unarchive:
+     src: "{{ confluent.package_url }}"
+     dest: "{{ confluent_home }}"
+     mode: 0755
+     remote_src: yes
+  creates: "{{ confluent_home }}/confluent-{{confluent_version}}-{{kafka_version}}.downloaded"
+
+- name: Install JDK Package
+  unarchive:
+    src: "{{ confluent.jdk_package_url }}"
+    dest: "{{confluent.jdk_dir}}"
+    mode: 0755
+    remote_src: yes
+    creates: "{{confluent.jdk_dir}}/jdk.downloaded"
+
+- name: Set JAVA HOME in all nodes and source it
+  shell: |
+    echo 'export JAVA_HOME={{ confluent.jdk_dir }}/jdk1.8.0_151' > {{ confluent_home }}/jdk.sh
+    echo 'export PATH={{ confluent.jdk_dir }}/jdk1.8.0_151/bin:/opt/alluxio/bin:/sbin:/usr/sbin:/usr/bin:/bin:$PATH' >> {{ confluent_home }}/jdk.sh
+    chmod 775 {{ confluent_home }}/jdk.sh

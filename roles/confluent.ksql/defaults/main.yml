@@ -1,0 +1,20 @@
+ksql:
+  config_dir: "{{ confluent_config_dir }}"
+  config_file: ksql-server.properties
+  service_name: ksql
+  systemd_override: /etc/systemd/system/confluent-ksql.service.d
+  logdir: "{{ confluent_log_dir }}"
+  datadir:
+    - "{{ data_base_dir }}/ksql/data"
+  user: ksql
+  group: rioapp
+  environment:
+    KSQL_HEAP_OPTS: "-Xmx3g"
+    KSQL_OPTS: "-Djava.security.auth.login.config={{ ksql_server_jaas }}"
+  config:
+    listeners: https://0.0.0.0:8084,http://0.0.0.0:8086
+    application.id: ksql-server
+    ssl.endpoint.identification.algorithm: ""
+  systemd:
+    enabled: yes
+    state: started

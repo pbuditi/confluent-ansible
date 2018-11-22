@@ -1,0 +1,18 @@
+confluent:
+  package_url: "{{ package_repo }}/confluent/confluent-{{confluent_version}}-{{kafka_version}}.tar.gz"
+  prometheus_package_url: "{{ package_repo }}/prometheus/jmx_prometheus_javaagent-0.3.1.jar"
+  jdk_package_url: "{{ package_repo }}/oraclejdk/jdk-8u151-linux-x64.tar.gz"
+  jdk_dir: "/opt/confluent/java/"
+  jdk_dir_test: "/opt/confluent/java/"
+  folders:
+    - /opt/confluent/etc
+    - /opt/confluent/var
+    - /opt/confluent/var/kerberos/keytabs
+    - /opt/confluent/var/ssl
+    - /opt/confluent/var/ssl/private
+    - /opt/confluent/var/kerberos
+    - /opt/confluent/lib
+    - /opt/confluent/bin
+    - /opt/confluent/logs
+    - /opt/confluent/java
+    - /opt/confluent/prometheus

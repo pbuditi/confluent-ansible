@@ -1,0 +1,34 @@
+- name: create data directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items: 
+    - "{{ ksql.datadir }}"
+
+- name: ksql start script
+  template:
+    src: ksql-start.sh.j2
+    dest: "{{ confluent_bin_dir }}/ksql-start.sh"
+    mode: 0750
+
+- name: ksql stop script
+  template:
+    src: ksql-stop.sh.j2
+    dest: "{{ confluent_bin_dir }}/ksql-stop.sh"
+    mode: 0750
+
+- name: ksql create jaas config
+  template:
+    src: ksql_jaas.conf.j2
+    dest: "{{ ksql_server_jaas }}"
+    mode: 0640  
+
+- name: ksql create config
+  template:
+    src: ksql_sasl_ssl.properties.j2
+    dest: "{{ ksql.config_dir }}/{{ ksql.config_file }}"
+    mode: 0640
+  notify:
+    - stop ksql
+    - start ksql

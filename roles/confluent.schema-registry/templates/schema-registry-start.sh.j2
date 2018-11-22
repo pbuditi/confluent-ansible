@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{% for key, value in schema.registry.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+nohup {{confluent_home}}/confluent-{{ confluent_version }}/bin/schema-registry-start {{schema.registry.config_dir}}/{{schema.registry.config_file}} > {{ confluent_log_dir}}/schema-registry.log &

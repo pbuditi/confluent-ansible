@@ -1,0 +1,18 @@
+// Specifies a unique keytab and principal name for each broker
+KafkaServer {
+    com.sun.security.auth.module.Krb5LoginModule required
+    useKeyTab=true
+    storeKey=true
+    serviceName={{ kerberos_kafka_service }}
+    keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab"
+    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";
+};
+
+KafkaClient {
+    com.sun.security.auth.module.Krb5LoginModule required
+    useKeyTab=true
+    storeKey=true
+    serviceName={{ kerberos_kafka_service }}
+    keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab"
+    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";
+};

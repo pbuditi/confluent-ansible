@@ -1,0 +1,17 @@
+- name: copy create certs script
+  copy: 
+    src: scripts/create.sh
+    dest: "{{ confluent_bin_dir }}"
+    mode: 0755
+
+- name: copy trust script
+  copy: 
+    src: scripts/trust.sh
+    dest: "{{ confluent_bin_dir }}"
+    mode: 0755
+
+# - name: create ssl certs
+#   script: scripts/create.sh
+#   args:
+#     chdir: "{{ confluent_home }}/var/ssl/private"
+ #   creates: "{{ confluent_home }}/var/ssl/private/rootCA.crt"

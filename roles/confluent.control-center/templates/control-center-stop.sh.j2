@@ -1,0 +1,7 @@
+#!/bin/bash
+   
+source {{confluent_home}}/jdk.sh
+{% for key, value in control.center.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+{{confluent_home}}/confluent-{{ confluent_version }}/bin/control-center-stop || echo "control-center server not started yet"

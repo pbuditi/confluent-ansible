@@ -1,0 +1,39 @@
+# Maintained by Ansible
+listeners=SASL_SSL://{{ inventory_hostname }}:{{ broker.config.port }}
+advertised.listeners=SASL_SSL://{{ inventory_hostname }}:{{ broker.config.port }}
+
+{% include './includes/base_server.properties.j2' %}
+
+# ACL configurations
+authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
+allow.everyone.if.no.acl.found=true
+
+#SASL Additions
+sasl.enabled.mechanisms=GSSAPI
+
+# Specify one of of the SASL mechanisms
+sasl.mechanism.inter.broker.protocol=GSSAPI
+sasl.kerberos.service.name={{ kerberos_kafka_service }}
+security.inter.broker.protocol=SASL_SSL
+
+#SSL Additions
+ssl.client.auth=required
+ssl.truststore.location={{ truststore_path }}
+ssl.truststore.password={{ truststore_password }}
+ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+ssl.keystore.password={{ keystore_password }}
+ssl.key.password={{ key_password }}
+
+
+#SSL Details for Metric Reporter
+confluent.metrics.reporter.sasl.mechanism=GSSAPI
+confluent.metrics.reporter.security.protocol=SASL_SSL
+confluent.metrics.reporter.sasl.kerberos.service.name={{ kerberos_kafka_service }}
+
+confluent.metrics.reporter.ssl.truststore.location={{ truststore_client_path }}
+confluent.metrics.reporter.ssl.truststore.password={{ truststore_password }}
+confluent.metrics.reporter.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+confluent.metrics.reporter.ssl.keystore.password={{ keystore_password }}
+confluent.metrics.reporter.ssl.key.password={{ key_password }}
+
+# Confluent Support

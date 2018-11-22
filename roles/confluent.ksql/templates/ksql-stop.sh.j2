@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source {{confluent_home}}/jdk.sh
+{{confluent_home}}/confluent-{{ confluent_version }}/bin/ksql-server-stop || echo "ksql server not started yet"

@@ -1,0 +1,29 @@
+- name: kafka-rest start script
+  template:
+    src: kafka-rest-start.sh.j2
+    dest: "{{ confluent_bin_dir }}/kafka-rest-start.sh"
+    mode: 0750
+
+- name: kafka-rest stop script
+  template:
+    src: kafka-rest-stop.sh.j2
+    dest: "{{ confluent_bin_dir }}/kafka-rest-stop.sh"
+    mode: 0750
+
+- name: kafka-rest create config
+  template:
+    src: kafka-rest_sasl_ssl.properties.j2
+    dest: "{{ kafkarest.config_dir }}/{{kafkarest.config_file}}"
+    mode: 0640
+  notify:
+    - stop kafka-rest
+    - start kafka-rest
+
+- name: kafka-rest create jaas
+  template:
+    src: restproxy_jaas.conf.j2
+    dest: "{{ kafkarest_server_jaas }}"
+    mode: 0640
+  notify:
+    - stop kafka-rest
+    - start kafka-rest

@@ -1,0 +1,36 @@
+- name: schema-registry start script
+  template:
+    src: schema-registry-start.sh.j2
+    dest: "{{ confluent_bin_dir }}/schema-registry-start.sh"
+    mode: 0755
+
+- name: schema-registry stop script
+  template:
+    src: schema-registry-stop.sh.j2
+    dest: "{{ confluent_bin_dir }}/schema-registry-stop.sh"
+    mode: 0755
+
+- name: schema-registry config
+  template:
+    src: schema-registry_sasl_ssl.properties.j2
+    dest: "{{schema.registry.config_dir}}/{{schema.registry.config_file}}"
+    mode: 0640
+
+- name: schema registry jaas config
+  template:
+    src: "schema-registry_jaas.conf.j2"
+    dest: "{{ schemaregistry_server_jaas }}"
+    mode: 0400
+  notify:
+    - stop schema-registry
+    - start schema-registry
+
+- name: stop schema-registry
+  shell: ./schema-registry-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+- name: start schema-registry
+  shell: ./schema-registry-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

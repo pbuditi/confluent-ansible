@@ -1,0 +1,15 @@
+- name: start control-center
+  shell: ./control-center-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+- name: stop control-center
+  shell: ./control-center-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+
+- name: restart control-center
+  shell: ./control-center-restart.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

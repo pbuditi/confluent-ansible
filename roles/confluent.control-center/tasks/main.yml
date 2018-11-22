@@ -1,0 +1,44 @@
+- name: create data directories
+  file:
+    path: "{{ control.center.datadir }}"
+    state: directory
+    mode: 0755
+
+- name: control center start script 
+  template:
+    src: control-center-start.sh.j2
+    dest: "{{ confluent_bin_dir }}/control-center-start.sh"
+    mode: 0755
+
+- name: control center stop script 
+  template:
+    src: control-center-stop.sh.j2
+    dest: "{{ confluent_bin_dir }}/control-center-stop.sh"
+    mode: 0755
+
+- name: control center restart script 
+  template:
+    src: control-center-restart.sh.j2
+    dest: "{{ confluent_bin_dir }}/control-center-restart.sh"
+    mode: 0755
+
+- name: control center jaas config
+  template:
+    src: controlcenter_jaas.conf.j2
+    dest: "{{ controlcenter_server_jaas }}"
+    mode: 0640
+
+- name: control center login config
+  template:
+    src: login.properties.j2
+    dest: "{{ control.center.config_dir }}/login.properties"
+    mode: 0640
+
+- name: control center create config
+  template:
+    src: control-center_sasl_ssl.properties.j2
+    dest: "{{ control.center.config_dir }}/{{control.center.config_file}}"
+    mode: 0640
+  notify:
+   - restart control-center
+

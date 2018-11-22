@@ -1,0 +1,9 @@
+- name: stop zookeeper
+  shell:  ./zookeeper-stop.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
+
+- name: start zookeeper
+  shell:  ./zookeeper-start.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
