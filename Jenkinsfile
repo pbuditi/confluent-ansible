@@ -19,10 +19,9 @@ stage('Initalize'){
 
 stage("Deploy to ${environment}")
     {	
-        sh '''
-             echo ./build_deploy_interactive.sh ${environmen} ${vault_password}
-            ./build_deploy_interactive.sh ${environment} ${vault_password}
-            ''' 
+        sh "echo ./build_deploy_interactive.sh ${environmen} ${vault_password}"
+        sh "./build_deploy_interactive.sh ${environment} ${vault_password}"
+
     }
 }
     
