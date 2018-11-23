@@ -1,6 +1,6 @@
 import java.text.SimpleDateFormat
 
-properties([ parameters: [
+properties([ parameters: 
  [$class: 'TextParameterDefinition', defaultValue: 'none', description: 'Ansible Vault Password', name: 'vaultpass']
 ])
  
