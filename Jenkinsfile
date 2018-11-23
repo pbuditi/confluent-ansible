@@ -22,6 +22,7 @@ def vault_password = ''
 stage("Deploy to ${environment}")
     {	
         sh '''
+             echo ./build_deploy_interactive.sh $environment $vault_password
             ./build_deploy_interactive.sh $environment $vault_password
             ''' 
     }
