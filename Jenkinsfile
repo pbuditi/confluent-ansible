@@ -31,9 +31,14 @@ currentBuild.result = "SUCCESS"
 
    }
 
-    stage("Deploy to ${env.DEPLOY_ENV}")
-    {
-        run_playbook("$env.DEPLOY_ENV", "$env.VAULT_PASS" );
+stage("Deploy to ${env.DEPLOY_ENV}")
+    {	
+            withEnv(["BASE_DIR=${baseDir}","DEPLOY_ENV=${deploy_env}"])
+            {
+                    sh '''
+                    $BASE_DIR/build_deploy_interactive.sh $env.DEPLOY_ENV $env.VAULT_PASS
+                    '''
+            } 
     }
 
   } catch (err) {
@@ -42,16 +47,4 @@ currentBuild.result = "SUCCESS"
 
         throw err
     }
-}
-def run_playbook(String deploy_env, String vaultpass) {
-		withEnv(["BASE_DIR=${baseDir}","DEPLOY_ENV=${deploy_env}"])
-        {
-                sh '''
-                $BASE_DIR/build_deploy_interactive.sh $DEPLOY_ENV $vaultpass
-                '''
-		}
-}
-def getEnvVar(String baseDir, String varName){
-  def val = sh (script: "grep '${varName}' ${baseDir}/env_vars/project.properties|cut -d'=' -f2", returnStdout: true).trim();
-  return val;
 }
