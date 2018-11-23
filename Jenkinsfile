@@ -26,7 +26,7 @@ currentBuild.result = "SUCCESS"
        baseDir = pwd();
 	   currentBranch = env.BRANCH_NAME;
 	   env.APP_BASE_DIR = pwd()
-       env.DEPLOY_ENV = getEnvVar(baseDir,'DEPLOY_ENV')
+       env.DEPLOY_ENV = 'dev'
        env.VAULT_PASS = userInput["vaultpass"]
 
    }
