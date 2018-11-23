@@ -20,7 +20,7 @@ currentBuild.result = "SUCCESS"
 stage("Deploy to ${env.DEPLOY_ENV}")
     {	
         sh '''
-            $BASE_DIR/build_deploy_interactive.sh $env.DEPLOY_ENV $env.VAULT_PASS
+            ./build_deploy_interactive.sh $env.DEPLOY_ENV $env.VAULT_PASS
             ''' 
     }
 }
