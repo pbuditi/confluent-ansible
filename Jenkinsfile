@@ -1,10 +1,11 @@
 import java.text.SimpleDateFormat
 
-def userInput = input(
- id: 'userInput', message: 'ansible vault password:', parameters: [
+properties([ parameters: [
  [$class: 'TextParameterDefinition', defaultValue: 'none', description: 'Ansible Vault Password', name: 'vaultpass']
 ])
  
+ 
+echo "${params.MYOPTION}"
 
 node("DOCKER_BUILD") {
 currentBuild.result = "SUCCESS"
@@ -36,7 +37,7 @@ currentBuild.result = "SUCCESS"
 	   env.DEPLOY_USER_ID = getEnvVar(baseDir, 'DEPLOY_USER_ID')
        env.ANSIBLE_DEPLOY_USER_CRED = getEnvVar(baseDir,'ANSIBLE_DEPLOY_USER_CRED')
        env.ANSIBLE_BECOME_USER_CRED = getEnvVar(baseDir,'ANSIBLE_BECOME_USER_CRED')
-       env.VAULT_PASS = $vaultpass
+       env.VAULT_PASS = $params.vaultpass
 
    }
 
