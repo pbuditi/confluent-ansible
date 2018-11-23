@@ -1,12 +1,5 @@
 
-// properties([ parameters: 
-//  [$class: 'TextParameterDefinition', defaultValue: 'none', description: 'Ansible Vault Password', name: 'vaultpass']
-// ])
-
-def userInput = input(
- id: 'userInput', message: 'Enter Vault Password:', parameters: [
- [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'vaultpass']
-])
+input message: 'enter password', parameters: [password(defaultValue: 'value', description: '', name: 'VAULT_PASS')]
  
 
 node("DOCKER_BUILD") {
@@ -21,7 +14,7 @@ currentBuild.result = "SUCCESS"
        //Get these from parameters later
        //mvnHome = tool 'Maven3.5.0' //Not there on jenkins
        env.DEPLOY_ENV = 'dev'
-       env.VAULT_PASS = userInput["vaultpass"]
+       env.VAULT_PASS = params.VAULT_PASS
    }
 
 stage("Deploy to ${env.DEPLOY_ENV}")
