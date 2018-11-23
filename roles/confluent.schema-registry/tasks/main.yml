@@ -21,9 +21,12 @@
     src: "schema-registry_jaas.conf.j2"
     dest: "{{ schemaregistry_server_jaas }}"
     mode: 0400
-  notify:
-    - stop schema-registry
-    - start schema-registry
+
+- name: kafka-broker jmx script
+  copy:
+    src: confluent-schema-registry-jmx.yml
+    dest: "{{ schema.registry.prometheus_jmx_path }}"
+    mode: 0750
 
 - name: stop schema-registry
   shell: ./schema-registry-stop.sh

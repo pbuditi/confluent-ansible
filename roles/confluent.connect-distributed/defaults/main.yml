@@ -7,8 +7,10 @@ kafka:
       service_name: confluent-kafka-connect
       user: connect
       group: rioapp
+      prometheus_jmx_path: /opt/confluent/prometheus/confluent-connect-jmx.yml
       environment:
         KAFKA_HEAP_OPTS: "-Xms256M -Xmx2G"
+        KAFKA_OPTS: "-javaagent:{{ jmx_prometheus_javaagent }}=9083:/opt/confluent/prometheus/confluent-connect-jmx.yml"
       config:
         rest.port: 8083
         consumer.interceptor.classes: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
@@ -35,4 +37,3 @@ kafka:
       systemd:
         enabled: yes
         state: started
-

@@ -7,3 +7,8 @@
   shell: ./kafka-rest-stop.sh
   args:
     chdir: "{{ confluent_bin_dir }}"
+
+- name: restart kafka-rest
+  shell: ./kafka-rest-restart.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

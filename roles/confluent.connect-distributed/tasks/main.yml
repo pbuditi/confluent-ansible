@@ -10,6 +10,12 @@
     dest: "{{ confluent_bin_dir}}/connect-stop.sh"
     mode: 0755
 
+- name: connect jmx script
+  copy:
+    src: confluent-connect-jmx.yml
+    dest: "{{ kafka.connect.distributed.prometheus_jmx_path }}"
+    mode: 0750
+
 - name: connect distributed config
   template:
     src: connect-distributed_sasl_ssl.properties.j2
@@ -19,12 +25,12 @@
     - stop connect
     - start connect
 
-- name: start connect
-  shell: ./connect-start.sh
+- name: stop connect
+  shell: ./connect-stop.sh
   args:
     chdir: "{{ confluent_bin_dir }}"
 
-- name: stop connect
-  shell: ./connect-stop.sh
+- name: start connect
+  shell: ./connect-start.sh
   args:
     chdir: "{{ confluent_bin_dir }}"

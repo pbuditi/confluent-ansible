@@ -9,3 +9,8 @@
   args:
     chdir: "{{ confluent_bin_dir }}"
   register: broker_status
+
+- name: restart broker
+  shell: ./kafka-restart.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

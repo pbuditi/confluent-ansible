@@ -10,14 +10,26 @@
     dest: "{{ confluent_bin_dir }}/kafka-rest-stop.sh"
     mode: 0750
 
+- name: kafka-rest restart script
+  template:
+    src: kafka-rest-restart.sh.j2
+    dest: "{{ confluent_bin_dir }}/kafka-rest-restart.sh"
+    mode: 0750
+
+
+- name: kafka-rest jmx script
+  copy:
+    src: confluent-rest.jmx.yml
+    dest: "{{ kafkarest.prometheus_jmx_path }}"
+    mode: 0750
+
 - name: kafka-rest create config
   template:
     src: kafka-rest_sasl_ssl.properties.j2
     dest: "{{ kafkarest.config_dir }}/{{kafkarest.config_file}}"
     mode: 0640
   notify:
-    - stop kafka-rest
-    - start kafka-rest
+    - restart kafka-rest
 
 - name: kafka-rest create jaas
   template:
@@ -25,5 +37,4 @@
     dest: "{{ kafkarest_server_jaas }}"
     mode: 0640
   notify:
-    - stop kafka-rest
-    - start kafka-rest
+    - restart kafka-rest

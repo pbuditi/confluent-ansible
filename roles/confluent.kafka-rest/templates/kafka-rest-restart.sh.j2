@@ -1,0 +1,12 @@
+#!/bin/bash
+    
+source {{confluent_home}}/jdk.sh
+{% for key, value in kafkarest.environment.items() %}
+export "{{key}}={{value}}"
+{% endfor %}
+
+#stop
+{{confluent_home}}/confluent-{{ confluent_version }}/bin/kafka-rest-stop || echo "kafka rest not started yet"
+
+#start
+nohup  {{confluent_home}}/confluent-{{ confluent_version }}/bin/kafka-rest-start {{ kafkarest.config_dir }}/{{ kafkarest.config_file }}  > {{ confluent_log_dir }}/kafka-rest-start.log &

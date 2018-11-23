@@ -22,6 +22,12 @@
     dest: "{{ zookeeper.config.dataDir }}/myid"
     mode: 0555
 
+- name: zookeeper jmx script
+  copy:
+    src: confluent-zookeeper-jmx.yml
+    dest: "{{ zookeeper.prometheus_jmx_path }}"
+    mode: 0750
+
 - name: zookeeper create config
   template:
     src: "zookeeper.properties.j2"

@@ -18,6 +18,12 @@
     dest: "{{ confluent_bin_dir }}/ksql-stop.sh"
     mode: 0750
 
+- name: ksql jmx script
+  copy:
+    src: confluent-ksql-jmx.yml
+    dest: "{{ ksql.prometheus_jmx_path }}"
+    mode: 0750
+
 - name: ksql create jaas config
   template:
     src: ksql_jaas.conf.j2

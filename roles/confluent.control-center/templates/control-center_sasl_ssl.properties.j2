@@ -1,6 +1,8 @@
 # Maintained by Ansible
 {% include './includes/base_control-center.properties.j2' %}
 
+confluent.controlcenter.id={{ controlcenter.id }}
+
 confluent.controlcenter.streams.security.protocol=SASL_SSL
 
 #SSL additions

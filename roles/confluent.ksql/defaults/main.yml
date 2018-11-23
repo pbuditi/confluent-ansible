@@ -8,11 +8,12 @@ ksql:
     - "{{ data_base_dir }}/ksql/data"
   user: ksql
   group: rioapp
+  prometheus_jmx_path: /opt/confluent/prometheus/confluent-ksql-jmx.yml
   environment:
     KSQL_HEAP_OPTS: "-Xmx3g"
-    KSQL_OPTS: "-Djava.security.auth.login.config={{ ksql_server_jaas }}"
+    KSQL_OPTS: "-Djava.security.auth.login.config={{ ksql_server_jaas }} -javaagent:{{ jmx_prometheus_javaagent }}=9084:/opt/confluent/prometheus/confluent-ksql-jmx.yml"
   config:
-    listeners: https://0.0.0.0:8084,http://0.0.0.0:8086
+    listeners: https://0.0.0.0:8084
     application.id: ksql-server
     ssl.endpoint.identification.algorithm: ""
   systemd:

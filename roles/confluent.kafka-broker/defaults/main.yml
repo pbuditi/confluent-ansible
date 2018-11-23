@@ -7,6 +7,7 @@ kafka:
     systemd_file: /usr/lib/systemd/system/confluent-kafka.service
     service_name: confluent-kafka
     logdir: "{{ confluent_log_dir }}"
+    prometheus_jmx_path: /opt/confluent/prometheus/confluent-kafka-jmx.yml
     datadir:
       - "{{ data_base_dir }}/kafka/data"
     systemd:
@@ -33,5 +34,5 @@ kafka:
       metric.reporters: io.confluent.metrics.reporter.ConfluentMetricsReporter
       confluent.metrics.reporter.bootstrap.servers: "{{inventory_hostname}}:{{broker.config.port}}"
     environment:
-      KAFKA_OPTS: "-Djava.security.auth.login.config={{ kafka_server_jaas }}   -javaagent:{{ jmx_prometheus_javaagent }}=8080:/opt/confluent/prometheus/confluent-kafka-jmx.yml"
+      KAFKA_OPTS: "-Djava.security.auth.login.config={{ kafka_server_jaas }} -javaagent:{{ jmx_prometheus_javaagent }}=9089:/opt/confluent/prometheus/confluent-kafka-jmx.yml"
       KAFKA_HEAP_OPTS: "-Xms6g -Xmx6g"

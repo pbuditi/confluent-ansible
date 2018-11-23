@@ -10,8 +10,8 @@
     dest: "{{ confluent_bin_dir }}"
     mode: 0755
 
-# - name: create ssl certs
-#   script: scripts/create.sh
-#   args:
-#     chdir: "{{ confluent_home }}/var/ssl/private"
- #   creates: "{{ confluent_home }}/var/ssl/private/rootCA.crt"
+- name: create ssl certs
+  script: scripts/create.sh
+  args:
+    chdir: "{{ confluent_home }}/var/ssl/private"
+#   creates: "{{ confluent_home }}/var/ssl/private/rootCA.crt"
