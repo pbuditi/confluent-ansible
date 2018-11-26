@@ -10,22 +10,21 @@ def inputMap = input (
  
 
 node("DOCKER_BUILD") {
-    //currentBuild.result = "SUCCESS"
+    currentBuild.result = "SUCCESS"
 
     stage('Checkout') { 
-        // for display purposes
-        // Get latest code from a GitHub repository
         checkout scm;
+        echo "${params.inputMap}"
         def environment = 'dev'
         def vault_password = inputMap['VAULT_PASS']
 
     }
 
-    stage("Deploy to ${environment}") {	
-        sh "echo ./build_deploy_interactive.sh ${environment} ${vault_password}"
-        //sh "./build_deploy_interactive.sh ${environment} ${vault_password}"
+    // stage("Deploy to ${environment}") {	
+    //     sh "echo ./build_deploy_interactive.sh ${environment} ${vault_password}"
+    //     //sh "./build_deploy_interactive.sh ${environment} ${vault_password}"
 
-    }
+    // }
 }
 
     
