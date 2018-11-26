@@ -2,11 +2,12 @@ node("DOCKER_BUILD") {
 
 def vaultPass = input (
         id: 'rioInput', message: 'enter password', parameters: [
-        password(defaultValue: 'value', description: '', name: 'vault')
+        password(defaultValue: 'value', description: 'vault password', name: 'vault'),
+        choice(choices: 'dev\nuat', description: 'env name', name: 'environment')
     ])
 
 currentBuild.result = "SUCCESS"
-def environment = 'dev'
+def environment = vaultPass['environment']
 def vault_password = ''
 
 stage('Checkout') { // for display purposes
