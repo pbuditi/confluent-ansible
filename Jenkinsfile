@@ -1,4 +1,8 @@
 pipeline {
+  environment {
+    GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
+    GIT_MSG = sh (script: "git log --format='medium' -1 ", returnStdout: true)
+  }
   agent {
     label 'DOCKER_BUILD'
   }
