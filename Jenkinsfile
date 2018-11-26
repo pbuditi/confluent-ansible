@@ -1,27 +1,27 @@
+def environment
+def vault_password
 
-input message: 'enter password', parameters: [password(defaultValue: 'value', description: '', name: 'VAULT_PASS')]
+stage ('Input') {
+    inputMap = input message: 'enter password', parameters: [password(defaultValue: 'value', description: '', name: 'VAULT_PASS')]
+    environment = 'dev'
+    vault_password = inputMap['VAULT_PASS']
+
+}
 
 node("DOCKER_BUILD") {
-currentBuild.result = "SUCCESS"
-def environment = 'dev'
-def vault_password = ''
+    currentBuild.result = "SUCCESS"
 
-stage('Checkout') { // for display purposes
-    // Get latest code from a GitHub repository
-    checkout scm;
-}
+    stage('Checkout') { 
+        // for display purposes
+        // Get latest code from a GitHub repository
+        checkout scm;
+    }
 
-stage('Initalize'){
-    //Get these from parameters later
-    environment = 'dev'
-    vault_password = params.VAULT_PASS
-}
-
-stage("Deploy to ${environment}")
-    {	
-        sh "echo ./build_deploy_interactive.sh ${environment} ${params.VAULT_PASS}"
+    stage("Deploy to ${environment}") {	
+        sh "echo ./build_deploy_interactive.sh ${environment} ${vault_password}"
         //sh "./build_deploy_interactive.sh ${environment} ${vault_password}"
 
     }
 }
+
     
