@@ -4,7 +4,7 @@ def inputVar = input message: 'enter password', parameters: [password(defaultVal
 
 currentBuild.result = "SUCCESS"
 def environment = 'dev'
-def vault_password = inputvar['vault']
+def vault_password = inputVar['vault']
 
 stage('Checkout') { // for display purposes
     // Get latest code from a GitHub repository
