@@ -1,6 +1,7 @@
+node("DOCKER_BUILD") {
+
 input message: 'enter password', parameters: [password(defaultValue: 'value', description: '', name: 'VAULT_PASS')]
 
-node("DOCKER_BUILD") {
 currentBuild.result = "SUCCESS"
 def environment = 'dev'
 def vault_password = 'something'
@@ -13,7 +14,7 @@ stage('Checkout') { // for display purposes
 stage('Initalize'){
     //Get these from parameters later
     environment = 'dev'
-    vault_password = params.VAULT_PASS
+    //vault_password = params.VAULT_PASS
 }
 
 stage("Deploy to ${environment}")
