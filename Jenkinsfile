@@ -1,10 +1,13 @@
 node("DOCKER_BUILD") {
 
-def inputVar = input message: 'enter password', parameters: [password(defaultValue: 'value', description: '', name: 'vault')]
+def rioInput = input (
+        id: 'rioInput', message: 'enter password', parameters: [
+        password(defaultValue: 'value', description: '', name: 'vault')
+    ])
 
 currentBuild.result = "SUCCESS"
 def environment = 'dev'
-def vault_password = inputVar['vault']
+def vault_password = rioInput['vault']
 
 stage('Checkout') { // for display purposes
     // Get latest code from a GitHub repository
