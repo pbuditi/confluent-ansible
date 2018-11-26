@@ -3,6 +3,9 @@ pipeline {
     GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
     GIT_MSG = sh (script: "git log --format='medium' -1 ", returnStdout: true)
   }
+  parameters {
+    password(name: 'VAULT_PASS', defaultValue: 'vaultpass', description: 'Enter VAULT_PASS')
+  }
   agent {
     label 'DOCKER_BUILD'
   }
@@ -10,9 +13,6 @@ pipeline {
   options {
       timeout(time: 1, unit: 'HOURS')
       disableConcurrentBuilds()
-  }
-  parameters {
-    password(name: 'VAULT_PASS', defaultValue: 'vaultpass', description: 'Enter VAULT_PASS')
   }
   stages {
     stage('Init'){
