@@ -1,10 +1,9 @@
-
 input message: 'enter password', parameters: [password(defaultValue: 'value', description: '', name: 'VAULT_PASS')]
 
 node("DOCKER_BUILD") {
 currentBuild.result = "SUCCESS"
 def environment = 'dev'
-def vault_password = ''
+def vault_password = 'something'
 
 stage('Checkout') { // for display purposes
     // Get latest code from a GitHub repository
