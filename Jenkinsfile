@@ -17,7 +17,7 @@ stage('Checkout') { // for display purposes
 
 stage('Initalize'){
     //Get these from parameters later
-    environment = 'dev'
+    //environment = 'dev'
     //vault_password = params.VAULT_PASS
 }
 
