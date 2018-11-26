@@ -7,8 +7,8 @@ node("DOCKER_BUILD") {
         // for display purposes
         // Get latest code from a GitHub repository
         checkout scm;
-        def  environment = 'dev'
-        def vault_password = params.inputMap['VAULT_PASS']
+        def environment = 'dev'
+        def vault_password = inputMap['VAULT_PASS']
 
     }
 
