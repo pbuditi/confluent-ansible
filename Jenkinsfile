@@ -5,7 +5,7 @@ pipeline {
   // }
   parameters {
     password(name: 'VAULT_PASS', defaultValue: 'vaultpass', description: 'Enter VAULT_PASS')
-    choice(name: 'environment', choices: ['dev','uat'], description: 'Which Environment ?' )
+    choice(name: 'rioenv', choices:'dev\nuat', description: 'Which Environment' )
   }
 
   agent {
@@ -23,7 +23,7 @@ pipeline {
           script {
             env.APP_BASE_DIR = pwd()
             env.CURRENT_BRANCH = env.BRANCH_NAME
-            env.DEPLOY_ENV = "${params.environment}"
+            env.DEPLOY_ENV = "${params.rioenv}"
             env.VAULT_PASS = "${params.VAULT_PASS}"
           }
       }
