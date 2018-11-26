@@ -1,3 +1,5 @@
+node("DOCKER_BUILD") {
+
 def inputMap = input (
     id: 'inputMap', message: 'enter password', parameters: [
         password(defaultValue: 'value', description: '', name: 'VAULT_PASS')
@@ -7,9 +9,8 @@ def inputMap = input (
 //  id: 'userInput', message: 'Let\'s promote?', parameters: [
 //  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']
 // ])
- 
 
-node("DOCKER_BUILD") {
+
     currentBuild.result = "SUCCESS"
 
     stage('Checkout') { 
