@@ -23,8 +23,8 @@ pipeline {
           script {
             env.APP_BASE_DIR = pwd()
             env.CURRENT_BRANCH = env.BRANCH_NAME
-            env.DEPLOY_ENV = "${environment}"
-            env.VAULT_PASS = "${VAULT_PASS}"
+            env.DEPLOY_ENV = "${params.environment}"
+            env.VAULT_PASS = "${params.VAULT_PASS}"
           }
       }
     }
