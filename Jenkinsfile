@@ -1,6 +1,6 @@
 node("DOCKER_BUILD") {
 
-input (
+def vaultPass = input (
         id: 'rioInput', message: 'enter password', parameters: [
         password(defaultValue: 'value', description: '', name: 'vault')
     ])
