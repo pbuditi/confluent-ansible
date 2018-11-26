@@ -32,8 +32,8 @@ pipeline {
     }
     stage('Deploy'){
       steps{
-        sh "echo ./build_deploy_interactive.sh ${environment} ${VAULT_PASS}"
-        sh "./build_deploy_interactive.sh ${environment} ${vault_password}"
+        sh "echo ./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
+        sh "./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
       }
     }
   }
