@@ -14,13 +14,13 @@ stage('Checkout') { // for display purposes
 stage('Initalize'){
     //Get these from parameters later
     environment = 'dev'
-    vault_password = params.VAULT_PASS
+    vault_password = ${params.VAULT_PASS}
 }
 
 stage("Deploy to ${environment}")
     {	
         sh "echo ./build_deploy_interactive.sh ${environment} ${vault_password}"
-        sh "./build_deploy_interactive.sh ${environment} ${vault_password}"
+        //sh "./build_deploy_interactive.sh ${environment} ${vault_password}"
 
     }
 }
