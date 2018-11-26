@@ -7,6 +7,7 @@ PACKAGE_BASE_DIR="$(pwd)/target"
 DEPLOY_ENV=$1
 VAULT_PASS=$2
 
+rm -rf $BASE_DIR/rio-ansible-vault.tmp || true
 echo $VAULT_PASS > $BASE_DIR/rio-ansible-vault.tmp
 
 export ANSIBLE_HOST_KEY_CHECKING=False
@@ -37,7 +38,7 @@ pip install --trusted-host nexuscimgmt.sgp.dbs.com:8443 --index-url https://nexu
 
 EXTRA_PARAMS="--connection=paramiko -e ansible_connection=paramiko -e host_key_checking=False --vault-password-file=$BASE_DIR/rio-ansible-vault.tmp"
 
-ansible-playbook -vvv -i $BASE_DIR/inventory/$DEPLOY_ENV/hosts.yml $EXTRA_PARAMS $BASE_DIR/all.yml
+ansible-playbook -i $BASE_DIR/inventory/$DEPLOY_ENV/hosts.yml $EXTRA_PARAMS $BASE_DIR/all.yml
 
 rm -rf $BASE_DIR/rio-ansible-vault.tmp || true
 
