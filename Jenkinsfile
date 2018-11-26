@@ -23,16 +23,11 @@ pipeline {
             env.DEPLOY_ENV = 'dev'
             env.VAULT_PASS = "${VAULT_PASS}"
           }
-          sh '''
-            echo $APP_BASE_DIR
-            echo $DEPLOY_ENV
-            echo $VAULT_PASS
-          '''
       }
     }
     stage('Deploy'){
       steps{
-        sh "echo ./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
+       // sh "echo ./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
         sh "./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
       }
     }
