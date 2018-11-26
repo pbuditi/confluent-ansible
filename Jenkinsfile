@@ -7,7 +7,7 @@ input (
 
 currentBuild.result = "SUCCESS"
 def environment = 'dev'
-def vault_password = rioInput['vault']
+def vault_password = ''
 
 stage('Checkout') { // for display purposes
     // Get latest code from a GitHub repository
