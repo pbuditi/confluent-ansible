@@ -33,7 +33,7 @@
      dest: "{{ confluent_home }}"
      mode: 0755
      remote_src: yes
-  creates: "{{ confluent_home }}/confluent-{{confluent_version}}-{{kafka_version}}.downloaded"
+     creates: "{{ confluent_home }}/confluent-{{confluent_version}}-{{kafka_version}}.downloaded"
 
 - name: Install JDK Package
   unarchive:

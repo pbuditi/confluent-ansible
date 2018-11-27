@@ -4,5 +4,39 @@ source {{confluent_home}}/jdk.sh
 {% for key, value in kafka.broker.environment.items() %}
 export "{{key}}={{value}}"
 {% endfor %}
-{{confluent_home}}/confluent-{{ confluent_version }}/bin/kafka-server-stop || echo "kafka server not started yet"
+
+loop="true"
+# stop kafka
+while ( "$loop" = "true" )
+do
+  echo "STOP: Stopping kafka Service..."
+  output=$({{confluent_home}}/confluent-{{ confluent_version }}/bin/kafka-server-stop) 
+  if [ "$output" == "No kafka server to stop" ]
+  then
+     loop="false"  
+  else 
+     sleep 10 
+  fi
+done
+
+# start kafka
 nohup {{confluent_home}}/confluent-{{ confluent_version }}/bin/kafka-server-start {{kafka.broker.config_dir}}/{{kafka.broker.config_file}} > {{ kafka.broker.logdir }}/broker.log &
+loop="true"
+while ( "$loop" = "true" )
+do 
+   echo "START: Check Kafka Server..."
+   if [ -z "$status" ] 
+    then 
+      status=$(grep -i "starting (kafka.server.KafkaServer)" {{ kafka.broker.logdir }}/broker.log) 
+      echo $status
+      sleep 10
+   else
+     loop="false"
+   fi
+done
+
+if [ $? == 0 ] ; then
+  echo 'SUCCESS: Kafka Server Started'
+else 
+  echo 'ERROR: Kafka Server not started'
+fi

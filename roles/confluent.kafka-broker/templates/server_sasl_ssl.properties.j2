@@ -6,8 +6,8 @@ advertised.listeners=SASL_SSL://{{ inventory_hostname }}:{{ broker.config.port }
 
 # ACL configurations
 authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
-allow.everyone.if.no.acl.found=false
-super.users=User:arpit
+allow.everyone.if.no.acl.found=true
+super.users=User:arpit;User:adminkafka;User:kafka;User:controlcenter;User:ksql;User:connect;User:schemaregistry;User:restproxy;User:zookeeper
 
 
 #SASL Additions
