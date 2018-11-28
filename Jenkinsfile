@@ -28,6 +28,18 @@ pipeline {
           }
       }
     }
+    stage('Create Release Request') {
+        createjiraticket([
+        "projectKey":"RIO",
+        "branch":"master",
+        "commitID":"a01237cc0b2",
+        "summary":"deploy ",
+        'APP_VERSION':"1",
+        'CD Deployment Type':"CD-RA",
+        'Nexus Artifact ID':"cp-ansible",
+        'Nexus Group ID':"com.dbs.rio",
+        "Repo URL":"https://bitbucket.sgp.dbs.com:8443/dcifgit/scm/rio"])
+    }
     stage('Deploy'){
       steps{
        // sh "echo ./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
