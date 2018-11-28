@@ -5,7 +5,7 @@ KafkaServer {
     storeKey=true
     serviceName={{ kerberos_kafka_service }}
     keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab"
-    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";
+    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
 };
 
 KafkaClient {
@@ -14,5 +14,5 @@ KafkaClient {
     storeKey=true
     serviceName={{ kerberos_kafka_service }}
     keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab"
-    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@SVCSUAT.DBS.COM";
+    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
 };
