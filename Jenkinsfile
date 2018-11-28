@@ -29,6 +29,7 @@ pipeline {
       }
     }
     stage('Create Release Request') {
+      steps{ 
         createjiraticket([
         "projectKey":"RIO",
         "branch":"master",
@@ -39,6 +40,7 @@ pipeline {
         'Nexus Artifact ID':"cp-ansible",
         'Nexus Group ID':"com.dbs.rio",
         "Repo URL":"https://bitbucket.sgp.dbs.com:8443/dcifgit/scm/rio"])
+       }
     }
     stage('Deploy'){
       steps{
