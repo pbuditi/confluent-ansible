@@ -45,8 +45,8 @@ sasl.kerberos.service.name={{ kerberos_kafka_service }}
 sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
     useKeyTab=true \
     storeKey=true \
-    keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab" \
-    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
+    keyTab="{{ keytab_path }}/{{ kerberos_connect_service }}.keytab" \
+    principal="{{ kerberos_connect_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
 
 
 # Configure SASL_SSL if SSL encryption is enabled
@@ -55,8 +55,8 @@ consumer.sasl.kerberos.service.name={{ kerberos_kafka_service }}
 consumer.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
     useKeyTab=true \
     storeKey=true \
-    keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab" \
-    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
+    keyTab="{{ keytab_path }}/{{ kerberos_connect_service }}.keytab" \
+    principal="{{ kerberos_connect_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
 
 
 producer.sasl.mechanism=GSSAPI
