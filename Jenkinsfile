@@ -35,7 +35,7 @@ pipeline {
     }
     stage('Package'){
       steps{
-        sh "mkdir ${APP_BASE_DIR}/release"
+      //  sh "mkdir ${APP_BASE_DIR}/release"
         sh "cd ${APP_BASE_DIR}/src && tar -czvf ${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz ."
       }
     }
