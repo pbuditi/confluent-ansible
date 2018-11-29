@@ -1,3 +1,13 @@
+
+def NEXUSARTIFACTS = [
+    GROUP_NAME          : "com/dbs/confluent",
+    GROUP_NAME_NO_PATH  : "com.dbs.rio",
+    FILENAME            : "File_Name",
+    REPOSITORY_NAME     : "RIO",
+    FILE_PREFIX         : "",
+    NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
+]
+
 pipeline {
   // environment {
   //   GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
@@ -75,12 +85,3 @@ pipeline {
     }
   }
 }
-
-def NEXUSARTIFACTS = [
-    GROUP_NAME          : "com/dbs/confluent",
-    GROUP_NAME_NO_PATH  : "com.dbs.rio",
-    FILENAME            : "File_Name",
-    REPOSITORY_NAME     : "RIO",
-    FILE_PREFIX         : "",
-    NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
-]
