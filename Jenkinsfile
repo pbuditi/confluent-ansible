@@ -12,6 +12,15 @@ pipeline {
     label 'DOCKER_BUILD'
   }
 
+  def NEXUSARTIFACTS = [
+    GROUP_NAME          : "com/dbs/confluent",
+    GROUP_NAME_NO_PATH  : "com.dbs.rio",
+    FILENAME            : "File_Name",
+    REPOSITORY_NAME     : "RIO",
+    FILE_PREFIX         : "",
+    NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
+]
+
   options {
       timeout(time: 1, unit: 'HOURS')
       disableConcurrentBuilds()
@@ -75,12 +84,3 @@ pipeline {
     }
   }
 }
-
-def NEXUSARTIFACTS = [
-    GROUP_NAME          : "com/dbs/confluent",
-    GROUP_NAME_NO_PATH  : "com.dbs.rio",
-    FILENAME            : "File_Name",
-    REPOSITORY_NAME     : "RIO",
-    FILE_PREFIX         : "",
-    NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
-]
