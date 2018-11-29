@@ -1,0 +1,43 @@
+# Maintained by Ansible
+{% include './includes/base_ksql.properties.j2' %}
+
+security.protocol=SASL_SSL
+producer.confluent.monitoring.interceptor.security.protocol=SASL_SSL
+consumer.confluent.monitoring.interceptor.security.protocol=SASL_SSL
+
+#SSL additions
+ssl.truststore.location={{ truststore_path }}
+ssl.truststore.password={{ truststore_password }}
+ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+ssl.keystore.password={{ keystore_password }}
+ssl.key.password={{ key_password }}
+
+producer.confluent.monitoring.interceptor.ssl.truststore.location={{ truststore_path }}
+producer.confluent.monitoring.interceptor.ssl.truststore.password={{ truststore_password }}
+producer.confluent.monitoring.interceptor.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+producer.confluent.monitoring.interceptor.ssl.keystore.password={{ keystore_password }}
+producer.confluent.monitoring.interceptor.ssl.key.password={{ key_password }}
+
+consumer.confluent.monitoring.interceptor.ssl.truststore.location={{ truststore_path }}
+consumer.confluent.monitoring.interceptor.ssl.truststore.password={{ truststore_password }}
+consumer.confluent.monitoring.interceptor.ssl.keystore.location={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks
+consumer.confluent.monitoring.interceptor.ssl.keystore.password={{ keystore_password }}
+consumer.confluent.monitoring.interceptor.ssl.key.password={{ key_password }}
+
+# Configure SASL_SSL if SSL encryption is enabled
+sasl.mechanism=GSSAPI
+
+consumer.confluent.monitoring.interceptor.sasl.mechanism=GSSAPI
+consumer.confluent.monitoring.interceptor.sasl.kerberos.service.name={{ kerberos_kafka_service }}
+consumer.confluent.monitoring.interceptor.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
+    useKeyTab=true \
+    storeKey=true \
+    keyTab="{{ keytab_path }}/{{ kerberos_ksql_service }}.keytab" \
+    principal="{{ kerberos_ksql_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
+producer.confluent.monitoring.interceptor.sasl.mechanism=GSSAPI
+producer.confluent.monitoring.interceptor.sasl.kerberos.service.name={{ kerberos_kafka_service }}
+producer.confluent.monitoring.interceptor.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required \
+    useKeyTab=true \
+    storeKey=true \
+    keyTab="{{ keytab_path }}/{{ kerberos_ksql_service }}.keytab" \
+    principal="{{ kerberos_ksql_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";

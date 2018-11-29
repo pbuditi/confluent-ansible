@@ -23,9 +23,40 @@ pipeline {
           script {
             env.APP_BASE_DIR = pwd()
             env.CURRENT_BRANCH = env.BRANCH_NAME
-            env.DEPLOY_ENV = "${params.rioenv}"
-            env.VAULT_PASS = "${params.VAULT_PASS}"
+            env.DEPLOY_ENV = "${params.DEPLOY_ENV}"
+            env.REPO_PASS = "${params.REPO_PASS}"
+            PROJECT_ID = 'RIO'
+            GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true).trim()
+            GIT_MSG = sh (script: "git log --format='medium' -1 ", returnStdout: true).trim()
+            env.GIT_COMMIT_HASH = sh (script: "git rev-parse HEAD", returnStdout: true).trim()
+            env.GIT_COMMIT_SHORT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true).trim()
           }
+      }
+    }
+    stage('Package'){
+      steps{
+        sh "mkdir ${APP_BASE_DIR}/release"
+        sh "cd ${APP_BASE_DIR}/src && tar -czvf ${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz ."
+      }
+    }
+    stage('Publish'){
+      steps{
+          nexusArtifactUploader artifacts: [
+                        [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar']],
+                        credentialsId: 'nexusArtifactUploader',
+                        groupId: "com.dbs.${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
+                        nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
+                        nexusVersion: 'nexus3',
+                        protocol: 'https',
+                        repository: "${NEXUSARTIFACTS.REPOSITORY_NAME}",
+                        version: "${NEXUSARTIFACTS.FILE_PREFIX}${env.BUILD_NUMBER}"
+                
+      }
+    }
+    stage('Deploy'){
+      steps{
+       // sh "echo ./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
+        sh "./src/build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
       }
     }
     stage('Create Release Request') {
@@ -42,11 +73,14 @@ pipeline {
           "Repo URL":"https://bitbucket.sgp.dbs.com:8443/dcifgit/scm/rio"])
        }
     }
-    stage('Deploy'){
-      steps{
-       // sh "echo ./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
-        sh "./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
-      }
-    }
   }
 }
+
+def NEXUSARTIFACTS = [
+    GROUP_NAME          : "com/dbs/confluent",
+    GROUP_NAME_NO_PATH  : "com.dbs.rio",
+    FILENAME            : "File_Name",
+    REPOSITORY_NAME     : "RIO",
+    FILE_PREFIX         : "",
+    NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
+]

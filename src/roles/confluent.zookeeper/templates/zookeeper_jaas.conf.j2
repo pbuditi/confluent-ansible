@@ -1,0 +1,18 @@
+// Specifies a unique keytab and principal name for each ZooKeeper node
+Server {
+    com.sun.security.auth.module.Krb5LoginModule required
+    useKeyTab=true
+    keyTab="{{ keytab_path }}/{{ kerberos_zookeeper_service }}.keytab"
+    storeKey=true
+    useTicketCache=false
+    principal="{{ kerberos_zookeeper_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
+};
+// ZooKeeper client authentication
+
+Client {
+    com.sun.security.auth.module.Krb5LoginModule required
+    useKeyTab=true
+    storeKey=true
+    keyTab="{{ keytab_path }}/{{ kerberos_kafka_service }}.keytab"
+    principal="{{ kerberos_kafka_service }}/{{ inventory_hostname }}@{{ kerberos_realm }}";
+};
