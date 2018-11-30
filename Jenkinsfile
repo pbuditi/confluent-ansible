@@ -1,8 +1,8 @@
 
 def NEXUSARTIFACTS = [
-    GROUP_NAME          : "cp-confluent",
-    GROUP_NAME_NO_PATH  : "cp-confluent",
-    FILENAME            : "cp-confluent",
+    GROUP_NAME          : "rio-cp-ansible",
+    GROUP_NAME_NO_PATH  : "rio-cp-ansible",
+    FILENAME            : "rio-cp-ansible",
     REPOSITORY_NAME     : "RIO",
     FILE_PREFIX         : "",
     NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
@@ -46,31 +46,32 @@ pipeline {
     stage('Package'){
       steps{
       //  sh "mkdir ${APP_BASE_DIR}/release"
-        sh "cd ${APP_BASE_DIR}/src && tar -czvf ${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz ."
+        sh "cd ${APP_BASE_DIR}/src && tar -czvf ${APP_BASE_DIR}/release/${PROJECT_ID}-cp-ansible.tar.gz ."
       }
     }
     stage('Publish'){
       steps{
-          // nexusArtifactUploader artifacts: [
-          //               [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz"], type: "tar" ],
-          //               credentialsId: 'nexusArtifactUploader',
-          //               groupId: "com.dbs.${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
-          //               nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
-          //               nexusVersion: 'nexus3',
-          //               protocol: 'https',
-          //               repository: "${NEXUSARTIFACTS.REPOSITORY_NAME}",
-          //               version: "${NEXUSARTIFACTS.FILE_PREFIX}${env.BUILD_NUMBER}"
+
+          nexusArtifactUploader artifacts: [
+                        [artifactId: "${PROJECT_ID}-cp-ansible.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-cp-ansible.tar.gz"], type: "tar.gz" ],
+                        credentialsId: 'nexusArtifactUploader',
+                        groupId: "${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
+                        nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
+                        nexusVersion: 'nexus3',
+                        protocol: 'https',
+                        repository: "${NEXUSARTIFACTS.REPOSITORY_NAME}",
+                        version: "${env.BUILD_NUMBER}"
                 
 
-      nexusArtifactUploader artifacts: [
-                      [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", classifier: '', file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar.gz']], 
-                      credentialsId: 'nexusArtifactUploader', 
-                      groupId: 'rio-cp-ansible', 
-                      nexusUrl: 'nexuscimgmt.sgp.dbs.com:8443/nexus', 
-                      nexusVersion: 'nexus3', 
-                      protocol: 'https', 
-                      repository: 'RIO', 
-                      version: '1'
+      // nexusArtifactUploader artifacts: [
+      //                 [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", classifier: '', file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar.gz']], 
+      //                 credentialsId: 'nexusArtifactUploader', 
+      //                 groupId: 'rio-cp-ansible', 
+      //                 nexusUrl: 'nexuscimgmt.sgp.dbs.com:8443/nexus', 
+      //                 nexusVersion: 'nexus3', 
+      //                 protocol: 'https', 
+      //                 repository: 'RIO', 
+      //                 version: '1'
         }
     }
     stage('Deploy'){
