@@ -63,7 +63,7 @@ pipeline {
                 
 
       nexusArtifactUploader artifacts: [
-                      [artifactId: 'cp-ansible', classifier: '', file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar']], 
+                      [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", classifier: '', file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar.gz']], 
                       credentialsId: 'nexusArtifactUploader', 
                       groupId: 'com.dbs.RIO', 
                       nexusUrl: 'nexuscimgmt.sgp.dbs.com:8443/nexus', 
