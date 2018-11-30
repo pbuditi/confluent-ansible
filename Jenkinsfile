@@ -53,7 +53,7 @@ pipeline {
       steps{
 
           nexusArtifactUploader artifacts: [
-                        [artifactId: "${PROJECT_ID}-cp-ansible.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-cp-ansible.tar.gz"], type: "tar.gz" ],
+                        [artifactId: "${PROJECT_ID}-cp-ansible.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-cp-ansible.tar.gz", type: "tar.gz" ]],
                         credentialsId: 'nexusArtifactUploader',
                         groupId: "${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
                         nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
