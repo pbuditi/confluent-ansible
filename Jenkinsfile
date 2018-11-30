@@ -1,8 +1,8 @@
 
 def NEXUSARTIFACTS = [
-    GROUP_NAME          : "com/dbs/confluent",
-    GROUP_NAME_NO_PATH  : "com.dbs.rio",
-    FILENAME            : "File_Name",
+    GROUP_NAME          : "cp-confluent",
+    GROUP_NAME_NO_PATH  : "cp-confluent",
+    FILENAME            : "cp-confluent",
     REPOSITORY_NAME     : "RIO",
     FILE_PREFIX         : "",
     NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
