@@ -52,7 +52,7 @@ pipeline {
     stage('Publish'){
       steps{
           nexusArtifactUploader artifacts: [
-                        [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar']],
+                        [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz"]],
                         credentialsId: 'nexusArtifactUploader',
                         groupId: "com.dbs.${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
                         nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
