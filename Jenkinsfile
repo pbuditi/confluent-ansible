@@ -51,17 +51,27 @@ pipeline {
     }
     stage('Publish'){
       steps{
-          nexusArtifactUploader artifacts: [
-                        [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz"]],
-                        credentialsId: 'nexusArtifactUploader',
-                        groupId: "com.dbs.${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
-                        nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
-                        nexusVersion: 'nexus3',
-                        protocol: 'https',
-                        repository: "${NEXUSARTIFACTS.REPOSITORY_NAME}",
-                        version: "${NEXUSARTIFACTS.FILE_PREFIX}${env.BUILD_NUMBER}"
+          // nexusArtifactUploader artifacts: [
+          //               [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz"], type: "tar" ],
+          //               credentialsId: 'nexusArtifactUploader',
+          //               groupId: "com.dbs.${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
+          //               nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
+          //               nexusVersion: 'nexus3',
+          //               protocol: 'https',
+          //               repository: "${NEXUSARTIFACTS.REPOSITORY_NAME}",
+          //               version: "${NEXUSARTIFACTS.FILE_PREFIX}${env.BUILD_NUMBER}"
                 
-      }
+
+      nexusArtifactUploader artifacts: [
+                      [artifactId: 'cp-ansible', classifier: '', file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar']], 
+                      credentialsId: 'nexusArtifactUploader', 
+                      groupId: 'com.dbs.RIO', 
+                      nexusUrl: 'nexuscimgmt.sgp.dbs.com:8443/nexus', 
+                      nexusVersion: 'nexus3', 
+                      protocol: 'https', 
+                      repository: 'RIO', 
+                      version: '1'
+        }
     }
     stage('Deploy'){
       steps{
