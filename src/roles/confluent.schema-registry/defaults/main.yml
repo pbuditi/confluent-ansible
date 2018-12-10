@@ -18,7 +18,7 @@ schema:
       host.name: "{{ inventory_hostname }}" 
     environment:
       SCHEMA_REGISTRY_HEAP_OPTS: "-Xmx1000M"
-      SCHEMA_REGISTRY_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }} -Djava.security.auth.login.config={{ schemaregistry_server_jaas }} -javaagent:{{ jmx_prometheus_javaagent }}=:/opt/confluent/prometheus/confluent-schema-registry-jmx.yml"    
+      SCHEMA_REGISTRY_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }} -Djava.security.auth.login.config={{ schemaregistry_server_jaas }} -javaagent:{{ jmx_prometheus_javaagent }}=9081:/opt/confluent/prometheus/confluent-schema-registry-jmx.yml"    
     systemd:
       enabled: yes
       state: started
