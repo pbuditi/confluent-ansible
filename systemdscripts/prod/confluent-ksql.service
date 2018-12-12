@@ -1,0 +1,15 @@
+[Unit]
+Description=Streaming SQL engine for Apache Kafka
+Documentation=http://docs.confluent.io/
+After=network.target
+
+[Service]
+Type=simple
+User=ksql
+Group=rioapp
+ExecStart=/opt/confluent/bin/ksql-start.sh
+TimeoutStopSec=180
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

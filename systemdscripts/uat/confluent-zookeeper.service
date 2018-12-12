@@ -1,0 +1,15 @@
+[Unit]
+Description=Apache Kafka - ZooKeeper
+Documentation=http://docs.confluent.io/
+After=network.target
+
+[Service]
+Type=simple
+User=zookeeper
+Group=rioapp  
+ExecStart=/opt/confluent/bin/zookeeper-start.sh
+TimeoutStopSec=180
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

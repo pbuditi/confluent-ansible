@@ -1,0 +1,7 @@
+sudo systemctl enable confluent-kafka
+sudo systemctl enable confluent-kafka-rest
+sudo systemctl enable confluent-kafka-connect
+sudo systemctl enable confluent-control-center
+sudo systemctl enable confluent-schema-registry
+sudo systemctl enable confluent-zookeeper
+sudo systemctl enable confluent-ksql

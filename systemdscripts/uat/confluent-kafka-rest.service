@@ -1,0 +1,15 @@
+[Unit]
+Description=A REST proxy for confluent Kafka
+Documentation=http://docs.confluent.io/
+After=network.target
+
+[Service]
+Type=simple
+User=restproxy
+Group=rioapp
+ExecStart=/opt/confluent/bin/kafka-rest-start.sh
+TimeoutStopSec=180
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=Apache Kafka Connect - distributed
+Documentation=http://docs.confluent.io/
+After=network.target
+
+[Service]
+Type=simple
+User=connect
+Group=rioapp
+ExecStart=/opt/confluent/bin/connect-start.sh
+TimeoutStopSec=180
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

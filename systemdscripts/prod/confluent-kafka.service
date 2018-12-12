@@ -1,0 +1,15 @@
+[Unit]
+Description=Apache Kafka - broker
+Documentation=http://docs.confluent.io/
+After=network.target
+
+[Service]
+Type=simple
+User=kafka
+Group=rioapp
+ExecStart=/opt/confluent/bin/kafka-start.sh
+TimeoutStopSec=180
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
