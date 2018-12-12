@@ -1,5 +1,5 @@
 [Unit]
-Description=Apache Kafka Connect - distributed
+Description=Apache CP Kafka Connect - distributed
 Documentation=http://docs.confluent.io/
 After=network.target
 

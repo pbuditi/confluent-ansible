@@ -1,5 +1,5 @@
 [Unit]
-Description=RESTful Avro schema registry for Apache Kafka
+Description=RESTful Avro schema registry for Apache CP Kafka
 Documentation=http://docs.confluent.io/
 After=network.target
 
