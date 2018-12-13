@@ -39,6 +39,8 @@ pip install --trusted-host nexuscimgmt.sgp.dbs.com:8443 --index-url https://nexu
 
 EXTRA_PARAMS="-e host_key_checking=False --vault-password-file=$BASE_DIR/rio-ansible-vault.tmp"
 
+ansible -i $BASE_DIR/inventory/$DEPLOY_ENV/hosts.yml -m ping preflight --private-key=$KEY_PATH
+
 echo "ansible-playbook -i $BASE_DIR/inventory/$DEPLOY_ENV/hosts.yml $EXTRA_PARAMS $BASE_DIR/all.yml --private-key=$KEY_PATH"
 ansible-playbook -i $BASE_DIR/inventory/$DEPLOY_ENV/hosts.yml $EXTRA_PARAMS $BASE_DIR/all.yml --private-key=$KEY_PATH
 
