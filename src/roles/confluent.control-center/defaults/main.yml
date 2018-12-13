@@ -10,7 +10,13 @@ control:
     systemd_override: /etc/systemd/system/confluent-control-center.service.d
     environment:
       CONTROL_CENTER_HEAP_OPTS: "-Xmx6g"
-      CONTROL_CENTER_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }} -Djava.security.auth.login.config={{ controlcenter_server_jaas }}"
+      #CONTROL_CENTER_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }} -Djava.security.auth.login.config={{ controlcenter_server_jaas }}"
+      CONTROL_CENTER_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }}
+                   -Djava.security.auth.login.config={{ controlcenter_server_jaas }} 
+                   -Djavax.net.ssl.trustStore={{ truststore_path }}
+                   -Djavax.net.ssl.trustStorePassword={{ truststore_password }} 
+                   -Djavax.net.ssl.keyStore={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks 
+                   -Djavax.net.ssl.keyStorePassword={{ keystore_password }}"
     config:
       confluent.controlcenter.streams.num.stream.threads: 8
       confluent.controlcenter.data.dir: "{{ data_base_dir }}/control-center/data"
@@ -25,7 +31,7 @@ control:
       confluent.controlcenter.mail.enabled: true
       confluent.controlcenter.mail.host.name: "{{ smtp_host_name }}"
       confluent.controlcenter.mail.port: "{{ smtp_port }}"
-      confluent.controlcenter.mail.from: "rio-uat-admin@dbs.com"
+      confluent.controlcenter.mail.from: "riodevadmin@uat1bank.dbs.com"
     systemd:
       enabled: yes
       state: started

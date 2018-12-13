@@ -10,7 +10,14 @@ kafka:
       prometheus_jmx_path: /opt/confluent/prometheus/confluent-connect-jmx.yml
       environment:
         KAFKA_HEAP_OPTS: "-Xms256M -Xmx2G"
-        KAFKA_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }} -javaagent:{{ jmx_prometheus_javaagent }}=9083:/opt/confluent/prometheus/confluent-connect-jmx.yml"
+       # KAFKA_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }} -javaagent:{{ jmx_prometheus_javaagent }}=9083:/opt/confluent/prometheus/confluent-connect-jmx.yml"
+        KAFKA_OPTS: "-Djava.security.krb5.conf={{ kerberos_krb5_conf }}
+                     -Djava.security.auth.login.config={{ connect_server_jaas }} 
+                     -Djavax.net.ssl.trustStore={{ truststore_path }}
+                     -Djavax.net.ssl.trustStorePassword={{ truststore_password }} 
+                     -Djavax.net.ssl.keyStore={{ keystore_path }}/{{ ansible_hostname }}.keystore.jks 
+                     -Djavax.net.ssl.keyStorePassword={{ keystore_password }}
+                     -javaagent:{{ jmx_prometheus_javaagent }}=9083:/opt/confluent/prometheus/confluent-connect-jmx.yml"
       config:
         rest.port: 8083
         consumer.interceptor.classes: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor

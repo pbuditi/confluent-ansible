@@ -1,7 +1,6 @@
 - hosts: zookeeper
   vars:
      ansible_user: "{{ zookeeper_user }}"
-     ansible_ssh_pass: "{{ zookeeper_password }}"
   roles:
       - { role: confluent.zookeeper, tags: zookeeper }
       
@@ -9,42 +8,36 @@
   serial: 1
   vars:
      ansible_user: "{{ kafka_user }}"
-     ansible_ssh_pass: "{{ kafka_password }}"
   roles:
       - { role: confluent.kafka-broker, tags: broker }
 
 - hosts: schema-registry
   vars:
      ansible_user: "{{ schemaregistry_user }}"
-     ansible_ssh_pass: "{{ schemaregistry_password }}"
   roles:
       - { role: confluent.schema-registry, tags: schema }
 
 - hosts: connect-distributed
   vars:
      ansible_user: "{{ connect_user }}"
-     ansible_ssh_pass: "{{ connect_password }}"
   roles:
       - { role: confluent.connect-distributed, tags: connect }
 
 - hosts: ksql
   vars:
      ansible_user: "{{ ksql_user }}"
-     ansible_ssh_pass: "{{ ksql_password }}"
   roles:
     - { role: confluent.ksql, tags: ksql }
 
 - hosts: control-center
   vars:
      ansible_user: "{{ controlcenter_user }}"
-     ansible_ssh_pass: "{{ controlcenter_password }}"
   roles:
     - { role: confluent.control-center, tags: control-center }
 
 - hosts: kafka-rest
   vars:
      ansible_user: "{{ restproxy_user }}"
-     ansible_ssh_pass: "{{ restproxy_password }}"
   roles:
     -  { role: confluent.kafka-rest, tags: kafka-rest }
 
