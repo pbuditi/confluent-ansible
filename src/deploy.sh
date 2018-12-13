@@ -2,7 +2,7 @@
 
 #source /etc/profile.d/maven.sh
 
-BASE_DIR=$(pwd)
+BASE_DIR=$(pwd)/src
 PACKAGE_BASE_DIR="$(pwd)/target"
 DEPLOY_ENV=$1
 VAULT_PASS=$2
