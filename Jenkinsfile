@@ -49,18 +49,18 @@ pipeline {
           sh "cd ${APP_BASE_DIR}/src && tar -czvf ${APP_BASE_DIR}/release/${PROJECT_ID}-cp-ansible.tar.gz ."
       }
     }
-    stage('Publish'){
-      steps{
+    // stage('Publish'){
+    //   steps{
 
-          nexusArtifactUploader artifacts: [
-                        [artifactId: "${PROJECT_ID}-cp-ansible.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-cp-ansible.tar.gz", type: "tar.gz" ]],
-                        credentialsId: 'nexusArtifactUploader',
-                        groupId: "${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
-                        nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
-                        nexusVersion: 'nexus3',
-                        protocol: 'https',
-                        repository: "${NEXUSARTIFACTS.REPOSITORY_NAME}",
-                        version: "${env.BUILD_NUMBER}"
+    //       nexusArtifactUploader artifacts: [
+    //                     [artifactId: "${PROJECT_ID}-cp-ansible.tar.gz", file: "${APP_BASE_DIR}/release/${PROJECT_ID}-cp-ansible.tar.gz", type: "tar.gz" ]],
+    //                     credentialsId: 'nexusArtifactUploader',
+    //                     groupId: "${NEXUSARTIFACTS.GROUP_NAME_NO_PATH}",
+    //                     nexusUrl: "${NEXUSARTIFACTS.NEXUS_URL}",
+    //                     nexusVersion: 'nexus3',
+    //                     protocol: 'https',
+    //                     repository: "${NEXUSARTIFACTS.REPOSITORY_NAME}",
+    //                     version: "${env.BUILD_NUMBER}"
                 
 
       // nexusArtifactUploader artifacts: [
@@ -72,8 +72,8 @@ pipeline {
       //                 protocol: 'https', 
       //                 repository: 'RIO', 
       //                 version: '1'
-        }
-    }
+    //     }
+   // }
     stage('Deploy'){
       steps{
          withCredentials([file(credentialsId: 'rio_dev_key', variable: 'id_rsa_rio')]) {
