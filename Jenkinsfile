@@ -77,7 +77,7 @@ pipeline {
     stage('Deploy'){
       steps{
          withCredentials([file(credentialsId: 'rio_dev_key', variable: 'id_rsa_rio')]) {
-          sh "./src/deploy.sh ${DEPLOY_ENV} ${VAULT_PASS} ${id_rsa_rio}"
+          sh "./src/deploy.sh dev ${VAULT_PASS} ${id_rsa_rio}"
         }
        
        // sh "echo ./build_deploy_interactive.sh ${DEPLOY_ENV} ${VAULT_PASS}"
