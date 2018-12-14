@@ -5,4 +5,7 @@ source {{confluent_home}}/jdk.sh
 {% for key, value in zookeeper.environment.items() %}
 export "{{key}}={{value}}"
 {% endfor %}
+
+{{confluent_home}}/confluent-{{ confluent_version }}/bin/zookeeper-server-stop || echo "zookeeper server- not started yet"
+sleep 60
 nohup {{confluent_home}}/confluent-{{ confluent_version }}/bin/zookeeper-server-start {{ zookeeper.config_dir }}/{{ zookeeper.config_file }}  > {{ confluent_log_dir }}/zk.log &

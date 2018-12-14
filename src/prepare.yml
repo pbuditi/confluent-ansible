@@ -16,6 +16,15 @@
       name: confluent.preflight
     tags:
       - install
+      
+- hosts: preflight
+  vars:
+    ansible_user: rioadmin
+  tasks:
+  - import_role:
+      name: prepare.copy_certs
+    tags:
+      - copy_certs
 
 - hosts: preflight
   vars:

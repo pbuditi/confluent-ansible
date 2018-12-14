@@ -16,23 +16,37 @@
     dest: "{{ confluent_bin_dir }}/zookeeper-start.sh"
     mode: 0750
 
+- name: zookeeper restart script
+  template:
+    src: "zookeeper-restart.sh.j2"
+    dest: "{{ confluent_bin_dir }}/zookeeper-restart.sh"
+    mode: 0750
+  notify:
+    - restart zookeeper
+
 - name: zookeeper myid file
   template:
     src: myid.j2
     dest: "{{ zookeeper.config.dataDir }}/myid"
     mode: 0555
+  notify:
+    - restart zookeeper
 
 - name: zookeeper jmx script
   copy:
     src: confluent-zookeeper-jmx.yml
     dest: "{{ zookeeper.prometheus_jmx_path }}"
     mode: 0750
+  notify:
+    - restart zookeeper
 
 - name: zookeeper create config
   template:
     src: "zookeeper.properties.j2"
     dest: "{{ confluent_config_dir}}/{{ zookeeper.config_file }}"
     mode: 0400
+  notify:
+    - restart zookeeper
 
 - name: zookeeper jaas create config
   template:
@@ -40,5 +54,4 @@
     dest: "{{ zookeeper_server_jaas}}"
     mode: 0400
   notify:
-    - stop zookeeper
-    - start zookeeper
+    - restart zookeeper

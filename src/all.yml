@@ -1,4 +1,5 @@
 - hosts: zookeeper
+  serial: 1
   vars:
      ansible_user: "{{ zookeeper_user }}"
   roles:
@@ -12,6 +13,7 @@
       - { role: confluent.kafka-broker, tags: broker }
 
 - hosts: schema-registry
+  serial: 1
   vars:
      ansible_user: "{{ schemaregistry_user }}"
   roles:

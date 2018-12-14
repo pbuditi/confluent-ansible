@@ -7,3 +7,8 @@
   shell: ./schema-registry-stop.sh
   args:
     chdir: "{{ confluent_bin_dir }}"
+
+- name: restart schema-registry
+  shell: ./schema-registry-restart.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"

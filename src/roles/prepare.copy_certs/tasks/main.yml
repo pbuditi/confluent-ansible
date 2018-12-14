@@ -1,0 +1,23 @@
+- name: Check that the certs file exists
+  stat:
+    path: "certs/{{ rio_environment }}/ssl_cert_for_{{ inventory_hostname }}.zip"
+  register: cert_found
+  delegate_to: localhost
+
+- name: Check that the CA certs file exists
+  stat:
+    path: "certs/{{ rio_environment }}/DBSBank-CA_{{ inventory_hostname }}.zip"
+  register: CA_cert_found
+  delegate_to: localhost
+
+- name: copy server certs
+  unarchive:
+    src: "certs/{{ rio_environment }}/ssl_cert_for_{{ inventory_hostname }}.zip"
+    dest: /opt/confluent/var/ssl/private
+  when: cert_found.stat.exists == True 
+
+- name: copy CA certs
+  unarchive:
+    src: "certs/{{ rio_environment }}/DBSBank-CA_{{ inventory_hostname }}.zip"
+    dest: /opt/confluent/var/ssl/private
+  when: CA_cert_found.stat.exists == True 

@@ -7,3 +7,8 @@
   shell:  ./zookeeper-start.sh
   args:
     chdir: "{{ confluent_bin_dir }}"
+
+- name: restart zookeeper
+  shell:  ./zookeeper-restart.sh
+  args:
+    chdir: "{{ confluent_bin_dir }}"
