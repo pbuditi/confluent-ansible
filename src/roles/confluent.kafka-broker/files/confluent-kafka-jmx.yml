@@ -20,3 +20,16 @@ rules:
   name: "cp_kafka_controller_controllerstats_$1"
 - pattern : kafka.server<type=SessionExpireListener, name=(.+)><>OneMinuteRate
   name: "cp_kafka_server_sessionexpirelistener_$1"
+  
+   # Additional Metrics 
+- pattern : kafka.network<type=Processor, name=IdlePercent, networkProcessor=(.+)><>Value
+- pattern : kafka.server<type=Produce><>queue-size
+- pattern : kafka.server<type=controller-channel-metrics, broker-id=(.+)><>(.*)
+- pattern : kafka.server<type=socket-server-metrics, networkProcessor=(.+)><>(.*)
+- pattern : kafka.server<type=Fetch><>queue-size
+- pattern : kafka.cluster<type=Partition, name=UnderReplicated, topic=(.+), partition=(.+)><>Value
+- pattern : kafka.utils<type=Throttler, name=cleaner-io><>OneMinuteRate
+- pattern : kafka.log<type=Log, name=LogEndOffset, topic=(.+), partition=(.+)><>Value
+- pattern : kafka.log<type=Log, name=LogStartOffset, topic=(.+), partition=(.+)><>Value
+- pattern : kafka.log<type=Log, name=Size, topic=(.+), partition=(.+)><>Value
+- pattern : java.lang<type=(.*)>
