@@ -12,7 +12,7 @@ source /opt/confluent/jdk.sh
 #rm -f *.crt *.csr *_creds *.jks *.srl *.key *.pem *.der *.p12 create.log ../trust.log ../*.jks
 
 # Generate CA key
-#openssl req -new -x509 -keyout rootCA.key -out rootCA.crt -days 4000 -subj "/CN=$(hostname)/OU=SVCSUAT/O=DBS/L=Singapore/S=SG/C=SG" -passin pass:confluent -passout pass:confluent
+#openssl req -new -x509 -keyout rootCA.key -out rootCA.crt -days 4000 -subj "/CN=$(hostname)/OU=SVCSUAT/O=MYDOMAIN/L=Singapore/S=SG/C=SG" -passin pass:confluent -passout pass:confluent
 
 # for i in broker client
 # do
@@ -26,7 +26,7 @@ source /opt/confluent/jdk.sh
 	# Create host keystore
 	# keytool -genkey -noprompt \
 	# 			 -alias $(hostname -s) \
-	# 			 -dname "CN=$(hostname),OU=SVCSUAT,O=DBS,L=Singapore,S=SG,C=SG" \
+	# 			 -dname "CN=$(hostname),OU=SVCSUAT,O=MYDOMAIN,L=Singapore,S=SG,C=SG" \
         #                          -ext san=dns:$(hostname -s) \
 	# 			 -keystore $(hostname -s).keystore.jks \
 	# 			 -keyalg RSA \

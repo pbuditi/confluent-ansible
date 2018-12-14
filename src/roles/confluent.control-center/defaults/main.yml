@@ -31,7 +31,7 @@ control:
       confluent.controlcenter.mail.enabled: true
       confluent.controlcenter.mail.host.name: "{{ smtp_host_name }}"
       confluent.controlcenter.mail.port: "{{ smtp_port }}"
-      confluent.controlcenter.mail.from: "riodevadmin@uat1bank.dbs.com"
+      confluent.controlcenter.mail.from: "riodevadmin@uat1bank.mydomain.com"
     systemd:
       enabled: yes
       state: started

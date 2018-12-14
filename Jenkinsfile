@@ -5,7 +5,7 @@ def NEXUSARTIFACTS = [
     FILENAME            : "rio-cp-ansible",
     REPOSITORY_NAME     : "RIO",
     FILE_PREFIX         : "",
-    NEXUS_URL           : "nexuscimgmt.sgp.dbs.com:8443/nexus",
+    NEXUS_URL           : "nexuscimgmt.sgp.mydomain.com:8443/nexus",
 ]
 
 pipeline {
@@ -67,7 +67,7 @@ pipeline {
       //                 [artifactId: "${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", classifier: '', file: "${APP_BASE_DIR}/release/${PROJECT_ID}-${GIT_COMMIT_SHORT_HASH}.tar.gz", type: 'tar.gz']], 
       //                 credentialsId: 'nexusArtifactUploader', 
       //                 groupId: 'rio-cp-ansible', 
-      //                 nexusUrl: 'nexuscimgmt.sgp.dbs.com:8443/nexus', 
+      //                 nexusUrl: 'nexuscimgmt.sgp.mydomain.com:8443/nexus', 
       //                 nexusVersion: 'nexus3', 
       //                 protocol: 'https', 
       //                 repository: 'RIO', 
@@ -93,8 +93,8 @@ pipeline {
           'APP_VERSION':"1",
           'CD Deployment Type':"CD-RA",
           'Nexus Artifact ID':"cp-ansible",
-          'Nexus Group ID':"com.dbs.rio",
-          "Repo URL":"https://bitbucket.sgp.dbs.com:8443/dcifgit/scm/rio"])
+          'Nexus Group ID':"com.mydomain.rio",
+          "Repo URL":"https://bitbucket.sgp.mydomain.com:8443/dcifgit/scm/rio"])
        }
     }
   }

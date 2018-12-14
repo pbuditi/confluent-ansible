@@ -14,13 +14,13 @@ echo $VAULT_PASS > $BASE_DIR/rio-ansible-vault.tmp
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 #mvn -Pjar clean package
-export PIP_INDEX_URL=https://nexuscimgmt.sgp.dbs.com:8443/nexus/repository/pypi-all/simple/
+export PIP_INDEX_URL=https://nexuscimgmt.sgp.mydomain.com:8443/nexus/repository/pypi-all/simple/
 #rm -rf ~/venv
 
 if [ ! -d ~/venv ]
 then
   python -m easy_install pip
-  python -m pip install --index-url https://nexuscimgmt.sgp.dbs.com:8443/nexus/repository/pypi-all/simple/ virtualenv
+  python -m pip install --index-url https://nexuscimgmt.sgp.mydomain.com:8443/nexus/repository/pypi-all/simple/ virtualenv
   python -m virtualenv ~/venv
 fi
 
@@ -32,7 +32,7 @@ export REQUESTS_CA_BUNDLE=
 export PYTHONUSERBASE=~/venv
 export VIRTUALENVWRAPPER_PYTHON=/home/pdcifadm/venv/bin/python
 
-pip install --trusted-host nexuscimgmt.sgp.dbs.com:8443 --index-url https://nexuscimgmt.sgp.dbs.com:8443/nexus/repository/pypi-all/simple/ ansible
+pip install --trusted-host nexuscimgmt.sgp.mydomain.com:8443 --index-url https://nexuscimgmt.sgp.mydomain.com:8443/nexus/repository/pypi-all/simple/ ansible
 
 #EXTRA_PARAMS="--user=$DEPLOY_USER --become-method=su --connection=paramiko -e ansible_connection=paramiko -e host_key_checking=False -e deploy_host=$DEPLOY_ENV -e ansible_become_pass=$CRED_BECOME_PASS -e ansible_ssh_pass=$DEPLOY_USER_PASS -e ansible_password=$DEPLOY_USER_PASS -e jar_file=$API_FULL_NAME"
 

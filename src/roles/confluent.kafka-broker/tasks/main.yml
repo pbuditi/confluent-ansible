@@ -35,19 +35,24 @@
     src: "kafka-restart.sh.j2"
     dest: "{{ confluent_bin_dir }}/kafka-restart.sh"
     mode: 0755
-
+  notify:
+    - restart broker
 
 - name: kafka-broker jmx script
   copy:
     src: confluent-kafka-jmx.yml
     dest: "{{ kafka.broker.prometheus_jmx_path }}"
     mode: 0750
+  notify:
+    - restart broker
 
 - name: kafka jaas create config
   template:
     src: "kafka_jaas.conf.j2"
     dest: "{{ kafka_server_jaas}}"
     mode: 0400
+  notify:
+    - restart broker
 
 - name: create broker config
   template:

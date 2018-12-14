@@ -10,9 +10,9 @@ Example:
 
 ```
 $ ls -1 ssl_cert_for*
-ssl_cert_for_x01grioapp1a.vsi.sgp.dbs.com.zip
-ssl_cert_for_x01grioapp2a.vsi.sgp.dbs.com.zip
-ssl_cert_for_x01grioapp3a.vsi.sgp.dbs.com.zip
+ssl_cert_for_x01grioapp1a.vsi.sgp.mydomain.com.zip
+ssl_cert_for_x01grioapp2a.vsi.sgp.mydomain.com.zip
+ssl_cert_for_x01grioapp3a.vsi.sgp.mydomain.com.zip
 .....
 ````
 
@@ -27,8 +27,8 @@ Example:
 
 ```
 $ ls -1d DBSBank-CA_*
-DBSBank-CA_x01grioapp1a.vsi.sgp.dbs.com.zip
-DBSBank-CA_x01grioapp2a.vsi.sgp.dbs.com.zip
-DBSBank-CA_x01grioapp3a.vsi.sgp.dbs.com.zip
+DBSBank-CA_x01grioapp1a.vsi.sgp.mydomain.com.zip
+DBSBank-CA_x01grioapp2a.vsi.sgp.mydomain.com.zip
+DBSBank-CA_x01grioapp3a.vsi.sgp.mydomain.com.zip
 .....
 ````

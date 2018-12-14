@@ -20,8 +20,8 @@ rules:
   name: "cp_kafka_controller_controllerstats_$1"
 - pattern : kafka.server<type=SessionExpireListener, name=(.+)><>OneMinuteRate
   name: "cp_kafka_server_sessionexpirelistener_$1"
-  
-   # Additional Metrics 
+
+# Additional Metrics 
 - pattern : kafka.network<type=Processor, name=IdlePercent, networkProcessor=(.+)><>Value
 - pattern : kafka.server<type=Produce><>queue-size
 - pattern : kafka.server<type=controller-channel-metrics, broker-id=(.+)><>(.*)
